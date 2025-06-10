@@ -1,0 +1,140 @@
+[package]
+name = "ark-firmware"
+version = "1.0.0"
+edition = "2021"
+authors = ["Gabriel <origin@ark-project.org>"]
+description = "ARK Autonomous Defensive Core - Immutable Firmware Layer"
+license = "Divine-Moral-Law"
+repository = "https://github.com/ark-project/ark"
+
+[lib]
+name = "ark_firmware"
+crate-type = ["staticlib", "cdylib"]
+
+[[bin]]
+name = "ark-firmware"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+debug = false
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+
+[profile.dev]
+opt-level = 1
+debug = true
+overflow-checks = true
+
+[dependencies]
+# Core no_std dependencies
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+embedded-hal = "1.0"
+nb = "1.1"
+void = { version = "1.0", default-features = false }
+
+# Cryptographic libraries
+chacha20poly1305 = { version = "0.10", default-features = false, features = ["alloc"] }
+aes-gcm = { version = "0.10", default-features = false, features = ["alloc"] }
+sha3 = { version = "0.10", default-features = false }
+blake3 = { version = "1.5", default-features = false, features = ["no_std"] }
+ed25519-dalek = { version = "2.1", default-features = false, features = ["zeroize"] }
+x25519-dalek = { version = "2.0", default-features = false, features = ["zeroize"] }
+
+# Post-quantum crypto
+pqcrypto-kyber = { version = "0.7", default-features = false }
+pqcrypto-dilithium = { version = "0.5", default-features = false }
+pqcrypto-sphincsplus = { version = "0.7", default-features = false }
+
+# Threshold cryptography
+frost-core = { version = "1.0", default-features = false }
+frost-ed25519 = { version = "1.0", default-features = false }
+
+# Secure memory and timing
+zeroize = { version = "1.7", default-features = false, features = ["derive"] }
+subtle = { version = "2.5", default-features = false }
+constant_time_eq = { version = "0.3", default-features = false }
+
+# Random number generation
+rand_core = { version = "0.6", default-features = false }
+rand_chacha = { version = "0.3", default-features = false }
+
+# Serialization
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+postcard = { version = "1.0", default-features = false, features = ["alloc"] }
+heapless = { version = "0.8", default-features = false, features = ["serde"] }
+
+# Memory management
+linked_list_allocator = "0.10"
+spin = { version = "0.9", default-features = false, features = ["mutex"] }
+
+# Hardware abstraction
+riscv = { version = "0.10", features = ["critical-section-single-hart"] }
+riscv-rt = "0.11"
+
+# Error handling
+thiserror-no-std = "2.0"
+
+# Logging (for debug builds only)
+log = { version = "0.4", default-features = false }
+
+[dev-dependencies]
+# Testing dependencies (only for host testing)
+rand = "0.8"
+hex = "0.4"
+criterion = "0.5"
+proptest = "1.4"
+
+[features]
+default = ["puf-heart", "optic-gate", "tri-compute"]
+
+# Hardware feature flags
+puf-heart = []
+optic-gate = []
+tri-compute = []
+trip-fuse = []
+
+# Security feature flags
+side-channel-protection = []
+fault-injection-protection = []
+timing-attack-protection = []
+
+# Debug features (disabled in release)
+debug-logging = ["log"]
+hardware-simulation = []
+
+# Crypto feature flags
+post-quantum = ["pqcrypto-kyber", "pqcrypto-dilithium", "pqcrypto-sphincsplus"]
+threshold-crypto = ["frost-core", "frost-ed25519"]
+
+[target.'cfg(target_arch = "riscv32")']
+rustflags = [
+  "-C", "target-cpu=generic-rv32",
+  "-C", "target-feature=+m,+a,+c", 
+  "-C", "relocation-model=static",
+  "-C", "code-model=medium"
+]
+
+# Memory layout for embedded target
+[target.'cfg(target_os = "none")']
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-nostartfiles"
+]
+
+# Build script configuration
+[build-dependencies]
+cc = "1.0"
+
+# Package metadata
+[package.metadata.docs.rs]
+all-features = false
+default-target = "riscv32imac-unknown-none-elf"
+targets = ["riscv32imac-unknown-none-elf", "x86_64-unknown-linux-gnu"]
+
+[package.metadata.cross.target.riscv32imac-unknown-none-elf]
+runner = "qemu-system-riscv32"

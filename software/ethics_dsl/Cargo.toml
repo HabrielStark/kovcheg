@@ -1,0 +1,116 @@
+[package]
+name = "ethics-dsl"
+version = "1.0.0"
+edition = "2021"
+authors = ["Gabriel <origin@ark-project.org>"]
+description = "ARK Ethics Domain-Specific Language - Biblical Morality Engine"
+license = "Divine-Moral-Law"
+repository = "https://github.com/ark-project/ark"
+
+[lib]
+name = "ethics_dsl"
+crate-type = ["lib", "cdylib"]
+
+[[bin]]
+name = "ethics-cli"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+debug = false
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+
+[dependencies]
+# Core parsing and language processing
+nom = "7.1"
+pest = "2.7"
+pest_derive = "2.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Biblical text processing
+unicode-normalization = "0.1"
+regex = "1.10"
+aho-corasick = "1.1"
+
+# Formal verification support
+z3 = { version = "0.12", optional = true }
+cvc5 = { version = "0.1", optional = true }
+
+# Cryptographic verification
+blake3 = "1.5"
+sha3 = "0.10"
+
+# Error handling and logging
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.10"
+
+# Concurrent processing
+rayon = "1.8"
+tokio = { version = "1.0", features = ["full"] }
+
+# Memory safety
+zeroize = { version = "1.7", features = ["derive"] }
+
+# Mathematical operations
+num-bigint = "0.4"
+num-rational = "0.4"
+num-traits = "0.2"
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.4"
+quickcheck = "1.0"
+pretty_assertions = "1.4"
+
+[features]
+default = ["biblical-foundation", "formal-verification"]
+
+# Core features
+biblical-foundation = []
+formal-verification = ["z3", "cvc5"]
+grammar-validation = []
+semantic-analysis = []
+
+# Biblical text processing
+hebrew-support = []
+greek-support = []
+aramaic-support = []
+
+# Advanced verification
+model-checking = ["z3"]
+theorem-proving = ["cvc5"]
+satisfiability-solving = ["z3"]
+
+# Performance features
+parallel-evaluation = ["rayon"]
+async-processing = ["tokio"]
+
+# Security features
+constant-time-ops = []
+side-channel-protection = []
+
+[[bench]]
+name = "dsl_parsing"
+harness = false
+
+[[bench]]
+name = "moral_evaluation"
+harness = false
+
+[[bench]]
+name = "formal_verification"
+harness = false
+required-features = ["formal-verification"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"] 

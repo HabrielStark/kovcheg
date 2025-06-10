@@ -1,0 +1,73 @@
+[package]
+name = "patch_orchestrator"
+version = "3.0.0"
+edition = "2021"
+authors = ["ARK Development Team"]
+description = "Autonomous patch orchestrator with Biblical moral compliance verification"
+license = "Biblical-Commons"
+repository = "air-gapped"
+
+[dependencies]
+# Core async runtime
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+
+# Cryptography - Post-quantum resistant
+kyber = "0.1"
+dilithium = "0.1"
+sphincs-plus = "0.1"
+blake3 = "1.5"
+sha3 = "0.10"
+aes-gcm = "0.10"
+chacha20poly1305 = "0.10"
+
+# Biblical morality verification
+ethics_dsl = { path = "../ethics_dsl" }
+cold_mirror = { path = "../cold_mirror" }
+
+# System integrity
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+hex = "0.4"
+zeroize = "1.7"
+secrecy = "0.8"
+
+# File system operations
+walkdir = "2.4"
+tempfile = "3.8"
+fs_extra = "1.3"
+
+# Network (air-gapped verification only)
+reqwest = { version = "0.11", features = ["json"], optional = true }
+
+# Formal verification integration
+z3 = { version = "0.12", optional = true }
+cvc5 = { version = "0.1", optional = true }
+
+# Logging and telemetry
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Hardware integration
+serialport = "4.2"
+
+[features]
+default = ["formal_verification"]
+formal_verification = ["z3", "cvc5"]
+emergency_mode = []
+testing = ["reqwest"]
+
+[dev-dependencies]
+proptest = "1.4"
+criterion = "0.5"
+
+[[bin]]
+name = "patch_orchestrator"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true 

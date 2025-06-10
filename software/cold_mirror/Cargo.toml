@@ -1,0 +1,143 @@
+[package]
+name = "cold-mirror"
+version = "1.0.0"
+edition = "2021"
+authors = ["Gabriel <origin@ark-project.org>"]
+description = "ARK Cold-Mirror - Neural Network Harm Prediction System"
+license = "Divine-Moral-Law"
+repository = "https://github.com/ark-project/ark"
+
+[lib]
+name = "cold_mirror"
+crate-type = ["lib", "cdylib"]
+
+[[bin]]
+name = "cold-mirror-cli"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = "fat"
+codegen-units = 1
+
+[dependencies]
+# Deep learning framework
+candle-core = "0.3"
+candle-nn = "0.3"
+candle-transformers = "0.3"
+safetensors = "0.4"
+
+# GPU acceleration (optional)
+candle-metal = { version = "0.3", optional = true }
+candle-cuda = { version = "0.3", optional = true }
+
+# Alternative ML framework
+tch = { version = "0.13", optional = true }
+torch-sys = { version = "0.13", optional = true }
+
+# Numerical computing
+ndarray = "0.15"
+ndarray-linalg = "0.16"
+ndarray-stats = "0.5"
+
+# Text processing
+tokenizers = "0.15"
+regex = "1.10"
+unicode-segmentation = "1.10"
+unicode-normalization = "0.1"
+
+# Image processing
+image = "0.24"
+imageproc = "0.23"
+
+# Audio processing (for multimedia content)
+cpal = { version = "0.15", optional = true }
+rubato = { version = "0.14", optional = true }
+
+# Data serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Async processing
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+
+# Performance optimization
+rayon = "1.8"
+crossbeam = "0.8"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging
+log = "0.4"
+env_logger = "0.10"
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Memory management
+memmap2 = "0.9"
+
+# Cryptographic hashing
+blake3 = "1.5"
+sha3 = "0.10"
+
+# Mathematics
+nalgebra = "0.32"
+statrs = "0.16"
+
+# Ethics integration
+ethics-dsl = { path = "../ethics_dsl" }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.4"
+tempfile = "3.8"
+
+[features]
+default = ["cpu-inference", "text-analysis", "image-analysis"]
+
+# Hardware acceleration
+gpu-metal = ["candle-metal"]
+gpu-cuda = ["candle-cuda"] 
+gpu-opencl = []
+
+# ML backends
+candle-backend = ["candle-core", "candle-nn", "candle-transformers"]
+torch-backend = ["tch", "torch-sys"]
+
+# Analysis capabilities
+cpu-inference = []
+text-analysis = ["tokenizers", "regex"]
+image-analysis = ["image", "imageproc"]
+audio-analysis = ["cpal", "rubato"]
+video-analysis = []
+
+# Performance features
+parallel-inference = ["rayon"]
+async-processing = ["tokio"]
+memory-mapping = ["memmap2"]
+
+# Security features
+side-channel-protection = []
+timing-attack-protection = []
+
+[[bench]]
+name = "inference_speed"
+harness = false
+
+[[bench]]
+name = "harm_prediction"
+harness = false
+
+[[bench]]
+name = "batch_processing"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"] 
