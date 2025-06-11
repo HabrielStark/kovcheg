@@ -1,0 +1,16 @@
+{
+  "l1_static_analysis": {
+    "timestamp": "2025-01-25T12:00:00Z",
+    "coverage_analysis": {
+      "status": "FAILED",
+      "threshold_required": 98.0,
+      "threshold_met": false
+    },
+    "fuzz_analysis": {
+      "status": "PASSED",
+      "executions_required": 100000000,
+      "threshold_met": true
+    },
+    "overall_status": "FAILED"
+  }
+}

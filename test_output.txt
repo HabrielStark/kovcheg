@@ -1,0 +1,1534 @@
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 812, in main
+    tester = ARKSystemIntegrationTester()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 82, in __init__
+    self._verify_biblical_foundation()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 103, in _verify_biblical_foundation
+    self.logger.info(f"\u2705 Biblical foundation verified: {foundation_hash[:16]}...")
+Message: '\u2705 Biblical foundation verified: 4b91d78f72a705c9...'
+Arguments: ()
+2025-06-11 23:04:02,434 - ARK_INTEGRATION - INFO - \u2705 Biblical foundation verified: 4b91d78f72a705c9...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 812, in main
+    tester = ARKSystemIntegrationTester()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 84, in __init__
+    self.logger.info("\U0001f6e1\ufe0f ARK System Integration Tester initialized")
+Message: '\U0001f6e1\ufe0f ARK System Integration Tester initialized'
+Arguments: ()
+2025-06-11 23:04:02,448 - ARK_INTEGRATION - INFO - \U0001f6e1\ufe0f ARK System Integration Tester initialized
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dc' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 812, in main
+    tester = ARKSystemIntegrationTester()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 85, in __init__
+    self.logger.info(f"\U0001f4dc Biblical Foundation: {BIBLICAL_FOUNDATION}")
+Message: '\U0001f4dc Biblical Foundation: 1_Thessalonians_5_21_Test_everything_hold_fast_what_is_good'
+Arguments: ()
+2025-06-11 23:04:02,450 - ARK_INTEGRATION - INFO - \U0001f4dc Biblical Foundation: 1_Thessalonians_5_21_Test_everything_hold_fast_what_is_good
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f451' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 812, in main
+    tester = ARKSystemIntegrationTester()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 86, in __init__
+    self.logger.info(f"\U0001f451 Divine Authority: {DIVINE_AUTHORITY}")
+Message: '\U0001f451 Divine Authority: Romans_13_1_Let_every_soul_be_subject_to_governing_authorities'
+Arguments: ()
+2025-06-11 23:04:02,454 - ARK_INTEGRATION - INFO - \U0001f451 Divine Authority: Romans_13_1_Let_every_soul_be_subject_to_governing_authorities
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 660, in run_full_integration_test_suite
+    self.logger.info("\U0001f680 Starting ARK System Integration Test Suite")
+Message: '\U0001f680 Starting ARK System Integration Test Suite'
+Arguments: ()
+2025-06-11 23:04:02,456 - ARK_INTEGRATION - INFO - \U0001f680 Starting ARK System Integration Test Suite
+2025-06-11 23:04:02,461 - ARK_INTEGRATION - INFO - ================================================================================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f3b2' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 147, in test_hw_entropy_generation
+    self.logger.info("\U0001f3b2 Testing hardware entropy generation (HW-01)")
+Message: '\U0001f3b2 Testing hardware entropy generation (HW-01)'
+Arguments: ()
+2025-06-11 23:04:02,462 - ARK_INTEGRATION - INFO - \U0001f3b2 Testing hardware entropy generation (HW-01)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 166, in test_hw_entropy_generation
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u2705 PASS \U0001f54a\ufe0f COMPLIANT - Hardware Entropy Generation'
+Arguments: ()
+2025-06-11 23:04:02,615 - ARK_INTEGRATION - INFO - \u2705 PASS \U0001f54a\ufe0f COMPLIANT - Hardware Entropy Generation
+2025-06-11 23:04:02,619 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:04:02,619 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u26a1' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 196, in test_optic_gate_latency
+    self.logger.info("\u26a1 Testing Optic Gate latency (HW-04)")
+Message: '\u26a1 Testing Optic Gate latency (HW-04)'
+Arguments: ()
+2025-06-11 23:04:02,620 - ARK_INTEGRATION - INFO - \u26a1 Testing Optic Gate latency (HW-04)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 221, in test_optic_gate_latency
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u274c FAIL \U0001f480 VIOLATION - Optic Gate Latency'
+Arguments: ()
+2025-06-11 23:04:04,099 - ARK_INTEGRATION - INFO - \u274c FAIL \U0001f480 VIOLATION - Optic Gate Latency
+2025-06-11 23:04:04,104 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:04:04,104 - ARK_INTEGRATION - INFO -     Measured: 2610000.000000, Threshold: 10.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dc' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 244, in test_dsl_parser_compliance
+    self.logger.info("\U0001f4dc Testing Ethics DSL parser ABNF compliance (SW-01)")
+Message: '\U0001f4dc Testing Ethics DSL parser ABNF compliance (SW-01)'
+Arguments: ()
+2025-06-11 23:04:04,104 - ARK_INTEGRATION - INFO - \U0001f4dc Testing Ethics DSL parser ABNF compliance (SW-01)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 273, in test_dsl_parser_compliance
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u2705 PASS \U0001f54a\ufe0f COMPLIANT - Ethics DSL Parser ABNF Compliance'
+Arguments: ()
+2025-06-11 23:04:04,109 - ARK_INTEGRATION - INFO - \u2705 PASS \U0001f54a\ufe0f COMPLIANT - Ethics DSL Parser ABNF Compliance
+2025-06-11 23:04:04,112 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:04:04,112 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f9ca' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 325, in test_cold_mirror_performance
+    self.logger.info("\U0001f9ca Testing Cold-Mirror performance (SW-02)")
+Message: '\U0001f9ca Testing Cold-Mirror performance (SW-02)'
+Arguments: ()
+2025-06-11 23:04:04,112 - ARK_INTEGRATION - INFO - \U0001f9ca Testing Cold-Mirror performance (SW-02)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 329, in test_cold_mirror_performance
+    await harm_predictor.initialize()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\software\cold_mirror\src\lib.py", line 82, in initialize
+    print("\U0001f6e1\ufe0f Enhanced AGI protection initialized")
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 362, in test_cold_mirror_performance
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u274c FAIL \U0001f480 VIOLATION - Cold-Mirror Harm Prediction Performance'
+Arguments: ()
+2025-06-11 23:04:04,121 - ARK_INTEGRATION - INFO - \u274c FAIL \U0001f480 VIOLATION - Cold-Mirror Harm Prediction Performance
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 50.000000
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f504' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 387, in test_patch_orchestrator_rollback
+    self.logger.info("\U0001f504 Testing patch orchestrator rollback (SW-04)")
+Message: '\U0001f504 Testing patch orchestrator rollback (SW-04)'
+Arguments: ()
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - INFO - \U0001f504 Testing patch orchestrator rollback (SW-04)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 421, in test_patch_orchestrator_rollback
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u2705 PASS \U0001f54a\ufe0f COMPLIANT - Patch Orchestrator Rollback Performance'
+Arguments: ()
+2025-06-11 23:04:04,147 - ARK_INTEGRATION - INFO - \u2705 PASS \U0001f54a\ufe0f COMPLIANT - Patch Orchestrator Rollback Performance
+2025-06-11 23:04:04,150 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:04:04,150 - ARK_INTEGRATION - INFO -     Measured: 11.673600, Threshold: 200.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f512' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 445, in test_side_channel_resistance
+    self.logger.info("\U0001f512 Testing side-channel resistance (SEC-02)")
+Message: '\U0001f512 Testing side-channel resistance (SEC-02)'
+Arguments: ()
+2025-06-11 23:04:04,151 - ARK_INTEGRATION - INFO - \U0001f512 Testing side-channel resistance (SEC-02)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 54-55: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 454, in test_side_channel_resistance
+    analyzer = BiblicalSideChannelAnalyzer(config)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 73, in __init__
+    self._verify_biblical_foundation()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 96, in _verify_biblical_foundation
+    self.logger.warning("\u26a0\ufe0f Biblical foundation verification failed - using default protection")
+Message: '\u26a0\ufe0f Biblical foundation verification failed - using default protection'
+Arguments: ()
+2025-06-11 23:04:04,154 - ARK_INTEGRATION - WARNING - \u26a0\ufe0f Biblical foundation verification failed - using default protection
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 454, in test_side_channel_resistance
+    analyzer = BiblicalSideChannelAnalyzer(config)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 75, in __init__
+    self.logger.info("\U0001f6e1\ufe0f ARK Side-Channel Analyzer initialized with Biblical protection")
+Message: '\U0001f6e1\ufe0f ARK Side-Channel Analyzer initialized with Biblical protection'
+Arguments: ()
+2025-06-11 23:04:04,156 - ARK_INTEGRATION - INFO - \U0001f6e1\ufe0f ARK Side-Channel Analyzer initialized with Biblical protection
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dc' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 454, in test_side_channel_resistance
+    analyzer = BiblicalSideChannelAnalyzer(config)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 76, in __init__
+    self.logger.info(f"\U0001f4dc Foundation: {BIBLICAL_FOUNDATION}")
+Message: '\U0001f4dc Foundation: Matthew_10_16_Be_wise_as_serpents_and_innocent_as_doves'
+Arguments: ()
+2025-06-11 23:04:04,159 - ARK_INTEGRATION - INFO - \U0001f4dc Foundation: Matthew_10_16_Be_wise_as_serpents_and_innocent_as_doves
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f50b' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 461, in test_side_channel_resistance
+    power_result = analyzer.analyze_power_consumption(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 113, in analyze_power_consumption
+    self.logger.info("\U0001f50b Starting power consumption analysis")
+Message: '\U0001f50b Starting power consumption analysis'
+Arguments: ()
+2025-06-11 23:04:04,162 - ARK_INTEGRATION - INFO - \U0001f50b Starting power consumption analysis
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 461, in test_side_channel_resistance
+    power_result = analyzer.analyze_power_consumption(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 168, in analyze_power_consumption
+    self.logger.info(f"\u2705 Power analysis complete - SNR: {snr:.4f}, Protection: {protection_level}")
+Message: '\u2705 Power analysis complete - SNR: 0.1024, Protection: Excellent'
+Arguments: ()
+2025-06-11 23:04:04,167 - ARK_INTEGRATION - INFO - \u2705 Power analysis complete - SNR: 0.1024, Protection: Excellent
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4e1' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 467, in test_side_channel_resistance
+    em_result = analyzer.analyze_electromagnetic_emissions(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 333, in analyze_electromagnetic_emissions
+    self.logger.info("\U0001f4e1 Starting electromagnetic emission analysis")
+Message: '\U0001f4e1 Starting electromagnetic emission analysis'
+Arguments: ()
+2025-06-11 23:04:04,170 - ARK_INTEGRATION - INFO - \U0001f4e1 Starting electromagnetic emission analysis
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 467, in test_side_channel_resistance
+    em_result = analyzer.analyze_electromagnetic_emissions(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\security_tests\side_channel\side_channel_analysis.py", line 395, in analyze_electromagnetic_emissions
+    self.logger.info(f"\u2705 EM analysis complete - Peak: {peak_power:.2f} dBm, SNR: {snr:.2f} dB")
+Message: '\u2705 EM analysis complete - Peak: -37.67 dBm, SNR: 0.13 dB'
+Arguments: ()
+2025-06-11 23:04:24,595 - ARK_INTEGRATION - INFO - \u2705 EM analysis complete - Peak: -37.67 dBm, SNR: 0.13 dB
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f50d' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 477, in test_side_channel_resistance
+    self.logger.info(f"\U0001f50d Power SNR: {power_result.snr_measured:.6f}, Biblical: {power_result.biblical_compliance}")
+Message: '\U0001f50d Power SNR: 0.102370, Biblical: True'
+Arguments: ()
+2025-06-11 23:04:24,601 - ARK_INTEGRATION - INFO - \U0001f50d Power SNR: 0.102370, Biblical: True
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f50d' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 478, in test_side_channel_resistance
+    self.logger.info(f"\U0001f50d EM SNR: {em_result.snr_measured:.6f}, Biblical: {em_result.biblical_compliance}")
+Message: '\U0001f50d EM SNR: 0.130024, Biblical: False'
+Arguments: ()
+2025-06-11 23:04:24,605 - ARK_INTEGRATION - INFO - \U0001f50d EM SNR: 0.130024, Biblical: False
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f50d' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 479, in test_side_channel_resistance
+    self.logger.info(f"\U0001f50d Max SNR: {max_snr:.6f}")
+Message: '\U0001f50d Max SNR: 0.130024'
+Arguments: ()
+2025-06-11 23:04:24,611 - ARK_INTEGRATION - INFO - \U0001f50d Max SNR: 0.130024
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 485, in test_side_channel_resistance
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u274c FAIL \U0001f480 VIOLATION - Side-Channel Resistance'
+Arguments: ()
+2025-06-11 23:04:24,614 - ARK_INTEGRATION - INFO - \u274c FAIL \U0001f480 VIOLATION - Side-Channel Resistance
+2025-06-11 23:04:24,619 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:04:24,619 - ARK_INTEGRATION - INFO -     Measured: 0.130024, Threshold: 1.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 508, in test_frost_signature_security
+    self.logger.info("\u2744\ufe0f Testing FROST signature security (SEC-03)")
+Message: '\u2744\ufe0f Testing FROST signature security (SEC-03)'
+Arguments: ()
+2025-06-11 23:04:24,619 - ARK_INTEGRATION - INFO - \u2744\ufe0f Testing FROST signature security (SEC-03)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 544, in test_frost_signature_security
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u2705 PASS \U0001f54a\ufe0f COMPLIANT - FROST Signature Security'
+Arguments: ()
+2025-06-11 23:04:24,623 - ARK_INTEGRATION - INFO - \u2705 PASS \U0001f54a\ufe0f COMPLIANT - FROST Signature Security
+2025-06-11 23:04:24,626 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:04:24,627 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 567, in test_end_to_end_moral_decision
+    self.logger.info("\U0001f6e1\ufe0f Testing end-to-end moral decision pipeline")
+Message: '\U0001f6e1\ufe0f Testing end-to-end moral decision pipeline'
+Arguments: ()
+2025-06-11 23:04:24,627 - ARK_INTEGRATION - INFO - \U0001f6e1\ufe0f Testing end-to-end moral decision pipeline
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 572, in test_end_to_end_moral_decision
+    await harm_predictor.initialize()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\software\cold_mirror\src\lib.py", line 82, in initialize
+    print("\U0001f6e1\ufe0f Enhanced AGI protection initialized")
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 677, in run_full_integration_test_suite
+    await test_method()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 637, in test_end_to_end_moral_decision
+    self._record_test_result(
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 133, in _record_test_result
+    self.logger.info(f"{status} {compliance} - {test_name}")
+Message: '\u274c FAIL \U0001f480 VIOLATION - End-to-End Moral Decision Pipeline'
+Arguments: ()
+2025-06-11 23:04:24,638 - ARK_INTEGRATION - INFO - \u274c FAIL \U0001f480 VIOLATION - End-to-End Moral Decision Pipeline
+2025-06-11 23:04:24,646 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:04:24,646 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 100.000000
+2025-06-11 23:04:24,647 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:04:24,650 - ARK_INTEGRATION - INFO - ================================================================================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 774, in _log_test_summary
+    self.logger.info("\U0001f6e1\ufe0f ARK SYSTEM INTEGRATION TEST SUMMARY")
+Message: '\U0001f6e1\ufe0f ARK SYSTEM INTEGRATION TEST SUMMARY'
+Arguments: ()
+2025-06-11 23:04:24,650 - ARK_INTEGRATION - INFO - \U0001f6e1\ufe0f ARK SYSTEM INTEGRATION TEST SUMMARY
+2025-06-11 23:04:24,655 - ARK_INTEGRATION - INFO - ================================================================================
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dc' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 776, in _log_test_summary
+    self.logger.info(f"\U0001f4dc Biblical Foundation: {BIBLICAL_FOUNDATION}")
+Message: '\U0001f4dc Biblical Foundation: 1_Thessalonians_5_21_Test_everything_hold_fast_what_is_good'
+Arguments: ()
+2025-06-11 23:04:24,655 - ARK_INTEGRATION - INFO - \U0001f4dc Biblical Foundation: 1_Thessalonians_5_21_Test_everything_hold_fast_what_is_good
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f451' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 777, in _log_test_summary
+    self.logger.info(f"\U0001f451 Divine Authority: {DIVINE_AUTHORITY}")
+Message: '\U0001f451 Divine Authority: Romans_13_1_Let_every_soul_be_subject_to_governing_authorities'
+Arguments: ()
+2025-06-11 23:04:24,658 - ARK_INTEGRATION - INFO - \U0001f451 Divine Authority: Romans_13_1_Let_every_soul_be_subject_to_governing_authorities
+2025-06-11 23:04:24,664 - ARK_INTEGRATION - INFO - 
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4ca' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 779, in _log_test_summary
+    self.logger.info(f"\U0001f4ca Total Tests: {report['summary']['total_tests']}")
+Message: '\U0001f4ca Total Tests: 8'
+Arguments: ()
+2025-06-11 23:04:24,665 - ARK_INTEGRATION - INFO - \U0001f4ca Total Tests: 8
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 780, in _log_test_summary
+    self.logger.info(f"\u2705 Passed: {report['summary']['passed_tests']}")
+Message: '\u2705 Passed: 4'
+Arguments: ()
+2025-06-11 23:04:24,670 - ARK_INTEGRATION - INFO - \u2705 Passed: 4
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 781, in _log_test_summary
+    self.logger.info(f"\u274c Failed: {report['summary']['failed_tests']}")
+Message: '\u274c Failed: 4'
+Arguments: ()
+2025-06-11 23:04:24,673 - ARK_INTEGRATION - INFO - \u274c Failed: 4
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 782, in _log_test_summary
+    self.logger.info(f"\U0001f54a\ufe0f Biblical Compliant: {report['summary']['biblical_compliant']}")
+Message: '\U0001f54a\ufe0f Biblical Compliant: 4'
+Arguments: ()
+2025-06-11 23:04:24,675 - ARK_INTEGRATION - INFO - \U0001f54a\ufe0f Biblical Compliant: 4
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4c8' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 783, in _log_test_summary
+    self.logger.info(f"\U0001f4c8 Pass Rate: {report['summary']['pass_rate']:.1%}")
+Message: '\U0001f4c8 Pass Rate: 50.0%'
+Arguments: ()
+2025-06-11 23:04:24,679 - ARK_INTEGRATION - INFO - \U0001f4c8 Pass Rate: 50.0%
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4dc' in position 51: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 784, in _log_test_summary
+    self.logger.info(f"\U0001f4dc Biblical Compliance Rate: {report['summary']['biblical_compliance_rate']:.1%}")
+Message: '\U0001f4dc Biblical Compliance Rate: 50.0%'
+Arguments: ()
+2025-06-11 23:04:24,681 - ARK_INTEGRATION - INFO - \U0001f4dc Biblical Compliance Rate: 50.0%
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 51-52: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 785, in _log_test_summary
+    self.logger.info(f"\u23f1\ufe0f Total Execution Time: {report['test_metadata']['total_execution_time']:.3f}s")
+Message: '\u23f1\ufe0f Total Execution Time: 22.137s'
+Arguments: ()
+2025-06-11 23:04:24,685 - ARK_INTEGRATION - INFO - \u23f1\ufe0f Total Execution Time: 22.137s
+2025-06-11 23:04:24,689 - ARK_INTEGRATION - WARNING - 
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 54-55: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 793, in _log_test_summary
+    self.logger.warning("\u26a0\ufe0f SOME TESTS FAILED - SYSTEM REQUIRES ATTENTION")
+Message: '\u26a0\ufe0f SOME TESTS FAILED - SYSTEM REQUIRES ATTENTION'
+Arguments: ()
+2025-06-11 23:04:24,689 - ARK_INTEGRATION - WARNING - \u26a0\ufe0f SOME TESTS FAILED - SYSTEM REQUIRES ATTENTION
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\Python311\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+  File "C:\Program Files\Python311\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f527' in position 54: character maps to <undefined>
+Call stack:
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 815, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+  File "C:\Program Files\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 640, in run_until_complete
+    self.run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 607, in run_forever
+    self._run_once()
+  File "C:\Program Files\Python311\Lib\asyncio\base_events.py", line 1922, in _run_once
+    handle._run()
+  File "C:\Program Files\Python311\Lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 813, in main
+    await tester.run_full_integration_test_suite()
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 685, in run_full_integration_test_suite
+    self._log_test_summary(report)
+  File "C:\Users\gabbi\OneDrive\Desktop\kovcheg\tests\integration\ark_system_integration_test.py", line 794, in _log_test_summary
+    self.logger.warning("\U0001f527 Please review failed tests and implement necessary corrections")
+Message: '\U0001f527 Please review failed tests and implement necessary corrections'
+Arguments: ()
+2025-06-11 23:04:24,692 - ARK_INTEGRATION - WARNING - \U0001f527 Please review failed tests and implement necessary corrections
+2025-06-11 23:04:24,695 - ARK_INTEGRATION - INFO - ================================================================================

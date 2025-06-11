@@ -1,0 +1,7 @@
+{
+  "id": "NT-06",
+  "description": "Quantum-Coherence Fault",
+  "temperature_mK": 20,
+  "microwave_impulse": true,
+  "generated": "2025-06-11T19:59:26.158542Z"
+}

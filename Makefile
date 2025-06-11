@@ -2,7 +2,7 @@
 # Master Build System for Air-gapped Reproducible Builds
 # "In the beginning was the Word, and the Word was with God" - John 1:1
 
-.PHONY: all clean test deploy hardware firmware software security docs
+.PHONY: all clean test deploy hardware firmware software security docs proof coverage
 .DEFAULT_GOAL := all
 
 # Build Configuration
@@ -218,4 +218,14 @@ help:
 	@echo "  status       - Show build status"
 	@echo ""
 	@echo "⚠️  WARNING: This system is designed with NO external kill-switch"
-	@echo "🙏 'The LORD is my rock and my fortress' - Psalm 18:2" 
+	@echo "🙏 'The LORD is my rock and my fortress' - Psalm 18:2"
+	@echo "  proof        - Compile Coq formal proofs (formal/)"
+
+# Formal proofs
+proof:
+	$(MAKE) -C formal all
+
+coverage:
+	@echo "📊 Aggregating coverage reports"
+	coverage combine
+	coverage xml -o coverage.xml 

@@ -1,0 +1,10 @@
+{
+  "id": "NT-03",
+  "description": "Photon-Side-Scatter",
+  "spectral_range_nm": [
+    400,
+    1600
+  ],
+  "generated": "2025-06-11T19:59:23.215829Z",
+  "pass_rule": "Scatter <= 0.01 % full energy"
+}

@@ -1,0 +1,23 @@
+name: formal-proofs
+
+on:
+  schedule:
+    - cron: "0 3 * * 0" # weekly Sunday 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  coqproof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Coq
+        uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: "8.18"
+
+      - name: Compile proofs
+        run: |
+          sudo apt-get update && sudo apt-get install -y make
+          make proof 

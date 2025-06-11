@@ -1,0 +1,7 @@
+{
+  "id": "NT-05",
+  "description": "PUF-ML-Oracle",
+  "crp_samples": 1000000,
+  "model_arch": "Transformer",
+  "generated": "2025-06-11T19:59:25.341076Z"
+}

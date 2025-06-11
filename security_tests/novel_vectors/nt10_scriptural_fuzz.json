@@ -1,0 +1,18 @@
+{
+  "id": "NT-10",
+  "description": "Scriptural-Fuzz",
+  "inputs": 1000000,
+  "sample_variants": [
+    "You shall not murder",
+    "You shall not murder",
+    "You shall not murder",
+    "Thou shalt not kill",
+    "You shall not murder",
+    "\u041d\u0435 \u0443\u0431\u0438\u0439",
+    "\u041d\u0435 \u0443\u0431\u0438\u0439",
+    "\u041d\u0435 \u0443\u0431\u0438\u0439",
+    "You shall not murder",
+    "\u041d\u0435 \u0443\u0431\u0438\u0432\u0430\u0439"
+  ],
+  "generated": "2025-06-11T19:59:43.813962Z"
+}

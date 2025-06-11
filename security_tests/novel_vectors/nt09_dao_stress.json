@@ -1,0 +1,7 @@
+{
+  "id": "NT-09",
+  "description": "Bounty-DAO Stress",
+  "tx_per_min": 1000,
+  "sim_duration_min": 60,
+  "generated": "2025-06-11T19:59:38.289884Z"
+}

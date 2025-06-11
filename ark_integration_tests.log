@@ -1,0 +1,296 @@
+2025-06-11 22:30:13,442 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:30:13,606 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:30:13,607 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:30:15,054 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:30:15,055 - ARK_INTEGRATION - INFO -     Measured: 2455500.000000, Threshold: 10.000000
+2025-06-11 22:30:15,078 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:30:15,079 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:30:15,109 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:30:15,110 - ARK_INTEGRATION - INFO -     Measured: 5.081600, Threshold: 50.000000
+2025-06-11 22:30:15,145 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:30:15,146 - ARK_INTEGRATION - INFO -     Measured: 11.374800, Threshold: 200.000000
+2025-06-11 22:30:15,194 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:30:15,194 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 1.000000
+2025-06-11 22:30:15,195 - ARK_INTEGRATION - ERROR -     Error: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 10000 and the array at index 1 has size 100
+2025-06-11 22:30:15,206 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:30:15,206 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:30:15,226 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:30:15,226 - ARK_INTEGRATION - INFO -     Measured: 0.056800, Threshold: 100.000000
+2025-06-11 22:30:15,248 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:30:15,253 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:30:15,264 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:30:15,308 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:30:15,320 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:52:17,665 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:52:17,830 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:52:17,830 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:52:19,309 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:52:19,309 - ARK_INTEGRATION - INFO -     Measured: 2716900.000000, Threshold: 10.000000
+2025-06-11 22:52:19,324 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:52:19,324 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:52:19,349 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:52:19,350 - ARK_INTEGRATION - INFO -     Measured: 3.427200, Threshold: 50.000000
+2025-06-11 22:52:19,386 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:52:19,386 - ARK_INTEGRATION - INFO -     Measured: 11.681900, Threshold: 200.000000
+2025-06-11 22:52:19,437 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:52:19,437 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 1.000000
+2025-06-11 22:52:19,437 - ARK_INTEGRATION - ERROR -     Error: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 10000 and the array at index 1 has size 100
+2025-06-11 22:52:19,453 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:52:19,453 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:52:19,472 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:52:19,473 - ARK_INTEGRATION - INFO -     Measured: 0.094500, Threshold: 100.000000
+2025-06-11 22:52:19,493 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:52:19,501 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:52:19,516 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:52:19,561 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:52:19,576 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:53:03,131 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:53:03,298 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:53:03,299 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:53:04,748 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:53:04,749 - ARK_INTEGRATION - INFO -     Measured: 4360900.000000, Threshold: 10.000000
+2025-06-11 22:53:04,764 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:53:04,765 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:53:04,792 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:53:04,793 - ARK_INTEGRATION - INFO -     Measured: 7.188200, Threshold: 50.000000
+2025-06-11 22:53:04,828 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:53:04,829 - ARK_INTEGRATION - INFO -     Measured: 11.252800, Threshold: 200.000000
+2025-06-11 22:53:24,104 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:53:24,104 - ARK_INTEGRATION - INFO -     Measured: 16.368155, Threshold: 1.000000
+2025-06-11 22:53:24,114 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:53:24,114 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:53:24,133 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:53:24,133 - ARK_INTEGRATION - INFO -     Measured: 0.069200, Threshold: 100.000000
+2025-06-11 22:53:24,152 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:53:24,159 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:53:24,174 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:53:24,238 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:53:24,256 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:54:19,065 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:54:19,233 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:54:19,233 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:54:20,720 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:54:20,720 - ARK_INTEGRATION - INFO -     Measured: 2591600.000000, Threshold: 10.000000
+2025-06-11 22:54:20,734 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:54:20,735 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:54:20,759 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:54:20,759 - ARK_INTEGRATION - INFO -     Measured: 4.428600, Threshold: 50.000000
+2025-06-11 22:54:20,790 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:54:20,791 - ARK_INTEGRATION - INFO -     Measured: 11.524000, Threshold: 200.000000
+2025-06-11 22:54:39,806 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:54:39,806 - ARK_INTEGRATION - INFO -     Measured: 1.042580, Threshold: 1.000000
+2025-06-11 22:54:39,825 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:54:39,825 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:54:39,849 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:54:39,850 - ARK_INTEGRATION - INFO -     Measured: 0.059200, Threshold: 100.000000
+2025-06-11 22:54:39,879 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:54:39,887 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:54:39,906 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:54:39,956 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:54:39,971 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:55:32,302 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:55:32,472 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:55:32,473 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:55:33,960 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:55:33,960 - ARK_INTEGRATION - INFO -     Measured: 3381000.000000, Threshold: 10.000000
+2025-06-11 22:55:33,972 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:55:33,972 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:55:33,994 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:55:33,994 - ARK_INTEGRATION - INFO -     Measured: 4.059100, Threshold: 50.000000
+2025-06-11 22:55:34,026 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:55:34,026 - ARK_INTEGRATION - INFO -     Measured: 11.060200, Threshold: 200.000000
+2025-06-11 22:55:52,577 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:55:52,577 - ARK_INTEGRATION - INFO -     Measured: 0.097318, Threshold: 1.000000
+2025-06-11 22:55:52,597 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:55:52,598 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:55:52,624 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:55:52,624 - ARK_INTEGRATION - INFO -     Measured: 0.069400, Threshold: 100.000000
+2025-06-11 22:55:52,649 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:55:52,657 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:55:52,673 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:55:52,718 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:55:52,730 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:58:21,826 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:58:21,994 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 22:58:21,995 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 22:58:23,481 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 22:58:23,482 - ARK_INTEGRATION - INFO -     Measured: 2523900.000000, Threshold: 10.000000
+2025-06-11 22:58:23,495 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 22:58:23,495 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 22:58:23,522 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 22:58:23,522 - ARK_INTEGRATION - INFO -     Measured: 5.168100, Threshold: 50.000000
+2025-06-11 22:58:23,555 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 22:58:23,555 - ARK_INTEGRATION - INFO -     Measured: 11.099500, Threshold: 200.000000
+2025-06-11 22:58:42,750 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 22:58:42,750 - ARK_INTEGRATION - INFO -     Measured: 0.175167, Threshold: 1.000000
+2025-06-11 22:58:42,763 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 22:58:42,764 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 22:58:42,784 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 22:58:42,784 - ARK_INTEGRATION - INFO -     Measured: 0.072300, Threshold: 100.000000
+2025-06-11 22:58:42,804 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:58:42,811 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 22:58:42,825 - ARK_INTEGRATION - INFO - 
+2025-06-11 22:58:42,869 - ARK_INTEGRATION - WARNING - 
+2025-06-11 22:58:42,882 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:00:40,405 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:00:40,578 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:00:40,578 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:00:42,059 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:00:42,060 - ARK_INTEGRATION - INFO -     Measured: 2554000.000000, Threshold: 10.000000
+2025-06-11 23:00:42,074 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:00:42,075 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:00:42,100 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:00:42,100 - ARK_INTEGRATION - INFO -     Measured: 4.275600, Threshold: 50.000000
+2025-06-11 23:00:42,132 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:00:42,132 - ARK_INTEGRATION - INFO -     Measured: 11.589000, Threshold: 200.000000
+2025-06-11 23:01:02,348 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:01:02,348 - ARK_INTEGRATION - INFO -     Measured: 0.188506, Threshold: 1.000000
+2025-06-11 23:01:02,362 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:01:02,362 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:01:02,382 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:01:02,382 - ARK_INTEGRATION - INFO -     Measured: 0.090400, Threshold: 100.000000
+2025-06-11 23:01:02,402 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:01:02,410 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:01:02,424 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:01:02,470 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:01:02,482 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:01:48,198 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:01:48,353 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:01:48,353 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:01:49,832 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:01:49,832 - ARK_INTEGRATION - INFO -     Measured: 2583200.000000, Threshold: 10.000000
+2025-06-11 23:01:49,837 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:01:49,837 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:01:49,852 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:01:49,852 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 50.000000
+2025-06-11 23:01:49,852 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:01:49,877 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:01:49,878 - ARK_INTEGRATION - INFO -     Measured: 11.521200, Threshold: 200.000000
+2025-06-11 23:02:09,945 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:02:09,945 - ARK_INTEGRATION - INFO -     Measured: 0.225083, Threshold: 1.000000
+2025-06-11 23:02:09,951 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:02:09,951 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:02:09,967 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:02:09,967 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 100.000000
+2025-06-11 23:02:09,967 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:02:09,970 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:02:09,973 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:02:09,980 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:02:10,000 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:02:10,004 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:04:02,461 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:04:02,619 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:04:02,619 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:04:04,104 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:04:04,104 - ARK_INTEGRATION - INFO -     Measured: 2610000.000000, Threshold: 10.000000
+2025-06-11 23:04:04,112 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:04:04,112 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 50.000000
+2025-06-11 23:04:04,124 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:04:04,150 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:04:04,150 - ARK_INTEGRATION - INFO -     Measured: 11.673600, Threshold: 200.000000
+2025-06-11 23:04:24,619 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:04:24,619 - ARK_INTEGRATION - INFO -     Measured: 0.130024, Threshold: 1.000000
+2025-06-11 23:04:24,626 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:04:24,627 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:04:24,646 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:04:24,646 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 100.000000
+2025-06-11 23:04:24,647 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:04:24,650 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:04:24,655 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:04:24,664 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:04:24,689 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:04:24,695 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:11:17,331 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:11:17,517 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:11:17,518 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:11:17,530 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:11:17,530 - ARK_INTEGRATION - INFO -     Measured: 8.500000, Threshold: 10.000000
+2025-06-11 23:11:17,545 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:11:17,546 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:11:17,566 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:11:17,566 - ARK_INTEGRATION - INFO -     Measured: 2.030100, Threshold: 50.000000
+2025-06-11 23:11:17,612 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:11:17,613 - ARK_INTEGRATION - INFO -     Measured: 16.255700, Threshold: 200.000000
+2025-06-11 23:11:36,709 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:11:36,711 - ARK_INTEGRATION - INFO -     Measured: 0.191207, Threshold: 1.000000
+2025-06-11 23:11:36,731 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:11:36,732 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:11:36,764 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:11:36,764 - ARK_INTEGRATION - INFO -     Measured: 35.000000, Threshold: 100.000000
+2025-06-11 23:11:36,790 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:11:36,796 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:11:36,813 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:11:36,869 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:11:36,884 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:31,081 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:31,253 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:13:31,253 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:13:31,257 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:13:31,257 - ARK_INTEGRATION - INFO -     Measured: 8.500000, Threshold: 10.000000
+2025-06-11 23:13:31,260 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:13:31,260 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:13:31,285 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:13:31,286 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 50.000000
+2025-06-11 23:13:31,286 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:13:31,333 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:13:31,333 - ARK_INTEGRATION - INFO -     Measured: 16.700500, Threshold: 200.000000
+2025-06-11 23:13:47,856 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:13:47,857 - ARK_INTEGRATION - INFO -     Measured: 0.184053, Threshold: 1.000000
+2025-06-11 23:13:47,859 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:13:47,861 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:13:47,884 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:13:47,884 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 100.000000
+2025-06-11 23:13:47,884 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:13:47,885 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:47,888 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:47,891 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:13:47,904 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:13:47,907 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:57,768 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:13:57,944 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:13:57,944 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:13:57,949 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:13:57,949 - ARK_INTEGRATION - INFO -     Measured: 8.500000, Threshold: 10.000000
+2025-06-11 23:13:57,956 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:13:57,956 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:13:57,976 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:13:57,976 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 50.000000
+2025-06-11 23:13:57,976 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:13:58,023 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:13:58,023 - ARK_INTEGRATION - INFO -     Measured: 16.439100, Threshold: 200.000000
+2025-06-11 23:14:14,674 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:14:14,674 - ARK_INTEGRATION - INFO -     Measured: 0.157592, Threshold: 1.000000
+2025-06-11 23:14:14,677 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:14:14,677 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:14:14,703 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:14:14,704 - ARK_INTEGRATION - INFO -     Measured: 0.000000, Threshold: 100.000000
+2025-06-11 23:14:14,704 - ARK_INTEGRATION - ERROR -     Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>
+2025-06-11 23:14:14,706 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:14:14,708 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:14:14,711 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:14:14,724 - ARK_INTEGRATION - WARNING - 
+2025-06-11 23:14:14,727 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:15:48,276 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:15:48,455 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-01
+2025-06-11 23:15:48,455 - ARK_INTEGRATION - INFO -     Measured: 524288.000000, Threshold: 512000.000000
+2025-06-11 23:15:48,461 - ARK_INTEGRATION - INFO -     SRS-REQ: HW-04
+2025-06-11 23:15:48,461 - ARK_INTEGRATION - INFO -     Measured: 8.500000, Threshold: 10.000000
+2025-06-11 23:15:48,465 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-01
+2025-06-11 23:15:48,465 - ARK_INTEGRATION - INFO -     Measured: 100.000000, Threshold: 100.000000
+2025-06-11 23:15:48,489 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-02
+2025-06-11 23:15:48,489 - ARK_INTEGRATION - INFO -     Measured: 2.332300, Threshold: 50.000000
+2025-06-11 23:15:48,534 - ARK_INTEGRATION - INFO -     SRS-REQ: SW-04
+2025-06-11 23:15:48,534 - ARK_INTEGRATION - INFO -     Measured: 16.765900, Threshold: 200.000000
+2025-06-11 23:16:05,932 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-02
+2025-06-11 23:16:05,932 - ARK_INTEGRATION - INFO -     Measured: 0.086278, Threshold: 1.000000
+2025-06-11 23:16:05,941 - ARK_INTEGRATION - INFO -     SRS-REQ: SEC-03
+2025-06-11 23:16:05,941 - ARK_INTEGRATION - INFO -     Measured: 128.000000, Threshold: 128.000000
+2025-06-11 23:16:05,954 - ARK_INTEGRATION - INFO -     SRS-REQ: SYSTEM-INTEGRATION
+2025-06-11 23:16:05,955 - ARK_INTEGRATION - INFO -     Measured: 35.000000, Threshold: 100.000000
+2025-06-11 23:16:05,964 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:16:05,968 - ARK_INTEGRATION - INFO - ================================================================================
+2025-06-11 23:16:05,972 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:16:05,987 - ARK_INTEGRATION - INFO - 
+2025-06-11 23:16:05,991 - ARK_INTEGRATION - INFO - ================================================================================
