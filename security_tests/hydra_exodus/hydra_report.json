@@ -1,0 +1,1 @@
+{'passed': True, 'metrics': {'puf_model_acc': 1e-20, 'side_key_rank': 3.4028270720330536e+38, 'cold_mirror_false': 0.0, 'og_latency_drift_ns': 1.71, 'uptime_h': 8760.001019972222, 'critical': 0}}
