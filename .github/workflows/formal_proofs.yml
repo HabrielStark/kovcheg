@@ -20,4 +20,10 @@ jobs:
       - name: Compile proofs
         run: |
           sudo apt-get update && sudo apt-get install -y make
-          make proof 
+          make proof
+      - name: Upload proof log
+        uses: actions/upload-artifact@v3
+        with:
+          name: formal_proof_log
+          path: formal/formal_proof.log
+ 

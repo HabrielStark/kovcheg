@@ -98,9 +98,9 @@ class BiblicalSideChannelAnalyzer:
             self.logger.info("✅ Biblical foundation verified successfully")
     
     def analyze_power_consumption(self, 
-                                  power_traces: np.ndarray, 
-                                  key_operations: List[int],
-                                  target_key: Optional[bytes] = None) -> SideChannelResult:
+                                power_traces: np.ndarray, 
+                                key_operations: List[int],
+                                target_key: Optional[bytes] = None) -> SideChannelResult:
         """
         Analyze power consumption traces for side-channel leakage with enhanced ARK protection.
         

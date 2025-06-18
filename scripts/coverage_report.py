@@ -8,6 +8,20 @@ import subprocess
 import json
 import sys
 from pathlib import Path
+import importlib.util
+
+# Ensure UTF-8 stdout/stderr even on Windows code-page consoles
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
+# Ensure pytest-cov availability
+if importlib.util.find_spec("pytest_cov") is None:
+    try:
+        subprocess.run([sys.executable, "-m", "pip", "install", "pytest-cov"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except subprocess.CalledProcessError as e:
+        print("⚠️  Failed to install pytest-cov automatically:", e, file=sys.stderr)
 
 def run_coverage_analysis():
     """Запуск анализа покрытия с требованием ≥98%"""

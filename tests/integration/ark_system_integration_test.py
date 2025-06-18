@@ -732,7 +732,7 @@ class ARKSystemIntegrationTester:
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
         return obj
-
+    
     def _generate_integration_report(self) -> Dict[str, Any]:
         """Generate comprehensive integration test report"""
         total_tests = len(self.test_results)

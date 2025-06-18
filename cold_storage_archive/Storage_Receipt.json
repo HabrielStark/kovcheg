@@ -1,0 +1,15 @@
+{
+  "archive_info": {
+    "filename": "ARK_v1.0_Complete_20250611_232321.tar.xz",
+    "size_bytes": 3432236,
+    "size_mb": 3.27,
+    "archive_hash": "8e365c2073cd039708386169a6517aac6ee061db4ab1ae7ab8ba4f34d30e9df4"
+  },
+  "storage_sites": [
+    "geo_site_alpha",
+    "geo_site_beta"
+  ],
+  "biblical_blessing": "Psalm_121_7_The_Lord_will_keep_you_from_all_harm",
+  "preservation_timestamp": "2025-06-11T23:23:34.137185Z",
+  "verification_command": "sha256sum ARK_v1.0_Complete_20250611_232321.tar.xz"
+}

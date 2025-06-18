@@ -412,26 +412,26 @@ jobs:
           echo '{
             "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
             "biblical_foundation": "'$BIBLICAL_FOUNDATION'",
-            "hardware_components": {
-              "puf_heart": {
-                "entropy_rate_bps": 524288,
-                "requirement_bps": 512000,
-                "compliance": true,
-                "biblical_reference": "Proverbs 16:33 - The lot is cast into the lap"
-              },
-              "optic_gate": {
-                "latency_ns": 8.5,
-                "requirement_ns": 10,
-                "compliance": true,
-                "biblical_reference": "Psalm 119:105 - Your word is a lamp to my feet"
-              },
-              "tri_compute_core": {
-                "integration_verified": true,
-                "technologies": ["CMOS", "FinFET", "Photonic"],
-                "biblical_reference": "Ecclesiastes 4:12 - A cord of three strands"
-              }
-            },
-            "overall_compliance": true
+  "hardware_components": {
+    "puf_heart": {
+      "entropy_rate_bps": 524288,
+      "requirement_bps": 512000,
+      "compliance": true,
+      "biblical_reference": "Proverbs 16:33 - The lot is cast into the lap"
+    },
+    "optic_gate": {
+      "latency_ns": 8.5,
+      "requirement_ns": 10,
+      "compliance": true,
+      "biblical_reference": "Psalm 119:105 - Your word is a lamp to my feet"
+    },
+    "tri_compute_core": {
+      "integration_verified": true,
+      "technologies": ["CMOS", "FinFET", "Photonic"],
+      "biblical_reference": "Ecclesiastes 4:12 - A cord of three strands"
+    }
+  },
+  "overall_compliance": true
           }' > hardware_verification_report.json
           
           echo "✅ Hardware verification report generated"
@@ -623,10 +623,10 @@ jobs:
             "rust_version": "'$RUST_VERSION'",
             "python_version": "'$PYTHON_VERSION'",
             "source_date_epoch": "'$SOURCE_DATE_EPOCH'",
-            "build_type": "air-gapped-reproducible",
-            "biblical_compliance": true,
-            "srs_compliance": true,
-            "components": {
+  "build_type": "air-gapped-reproducible",
+  "biblical_compliance": true,
+  "srs_compliance": true,
+  "components": {
               "firmware": "pending",
               "ethics_dsl": "pending",
               "cold_mirror": "pending",
@@ -717,7 +717,7 @@ jobs:
           
           # Verify all SRS requirements met
           echo "📊 Verifying SRS compliance..."
-          echo "✅ All SRS requirements verified"
+            echo "✅ All SRS requirements verified"
           
           echo "========================================================="
           echo "🎉 FINAL VERIFICATION COMPLETE 🎉"
@@ -757,9 +757,9 @@ jobs:
           name: ark-biblical-certification
           path: ark_biblical_certification.txt
 
-  # ================================================================
-  # Notification and Deployment
-  # ================================================================
+# ================================================================
+# Notification and Deployment
+# ================================================================
   deploy-notification:
     name: "📢 Deployment Notification"
     runs-on: ubuntu-latest

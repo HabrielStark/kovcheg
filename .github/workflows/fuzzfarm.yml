@@ -18,12 +18,12 @@ jobs:
         run: |
           mkdir -p attack_llm_runs
           python -c "
-          from software.attack_llm.src.lib import AttackLLMSimulator
-          import json, datetime, random, pathlib
-          sim = AttackLLMSimulator()
-          data = sim.generate_with_severity(50)
+from software.attack_llm.src.lib import AttackLLMSimulator
+import json, datetime, random, pathlib
+sim = AttackLLMSimulator()
+data = sim.generate_with_severity(50)
           path = pathlib.Path('attack_llm_runs')/f'run_{datetime.datetime.utcnow().strftime(\"%Y%m%dT%H%M%SZ\")}.json'
-          path.write_text(json.dumps(data, indent=2))
+path.write_text(json.dumps(data, indent=2))
           print(f'Attack-LLM batch saved to {path}')
           "
       - name: Generate all NT vectors

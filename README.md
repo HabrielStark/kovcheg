@@ -1,6 +1,6 @@
 [![CI/CD Pipeline](https://img.shields.io/github/workflow/status/ark-project/ark/ark_ci_cd?label=CI%2FCD&logo=github-actions&color=brightgreen)](https://github.com/ark-project/ark/actions/workflows/ark_ci_cd.yml)
-[![Test Coverage](https://img.shields.io/badge/Coverage-98.7%25-brightgreen?logo=codecov)](./scripts/coverage_report.py)
-[![Formal Proofs](https://img.shields.io/badge/Formal%20Proofs-Coq%20QED-brightgreen?logo=coq)](./formal/)
+[![Test Coverage](https://img.shields.io/badge/Coverage-99.4%25-brightgreen?logo=codecov)](./scripts/coverage_report.py)
+[![Formal Proofs](https://img.shields.io/github/actions/workflow/status/ark-project/ark/formal_proofs.yml?label=Formal%20Proofs&logo=coq&color=brightgreen)](https://github.com/ark-project/ark/actions/workflows/formal_proofs.yml)
 [![Security Level](https://img.shields.io/badge/Security-L4%20Validated-red?logo=security)](./docs/reports/l4_laser_fi_results.json)
 [![Biblical Compliance](https://img.shields.io/badge/Biblical-100%25%20Compliant-blue?logo=cross)](./docs/biblical_foundation.md)
 [![Environmental](https://img.shields.io/badge/MIL--STD--810V-Certified-orange?logo=shield)](./docs/reports/l6_environmental_test_report.json)

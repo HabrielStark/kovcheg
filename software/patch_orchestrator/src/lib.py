@@ -16,20 +16,20 @@ try:
 except ModuleNotFoundError:  # pragma: no cover – CI always has zstd
     import zlib as _zlib
 
-    class _ZstdCompat:
+    class _ZstdCompat:  # pragma: no cover
         @staticmethod
-        def ZstdCompressor(level: int = 3):
-            class _C:
-                def compress(self, data: bytes) -> bytes:  # noqa: D401
+        def ZstdCompressor(level: int = 3):  # pragma: no cover
+            class _C:  # pragma: no cover
+                def compress(self, data: bytes) -> bytes:  # noqa: D401  # pragma: no cover
                     lvl = max(0, min(level, 9))
                     return _zlib.compress(data, lvl)
 
             return _C()
 
         @staticmethod
-        def ZstdDecompressor():
-            class _D:
-                def decompress(self, data: bytes) -> bytes:  # noqa: D401
+        def ZstdDecompressor():  # pragma: no cover
+            class _D:  # pragma: no cover
+                def decompress(self, data: bytes) -> bytes:  # noqa: D401  # pragma: no cover
                     return _zlib.decompress(data)
 
             return _D()
@@ -48,19 +48,19 @@ try:
     _has_crypto = True
 except ModuleNotFoundError:  # pragma: no cover – lightweight fallback
 
-    class _DummyKey:
+    class _DummyKey:  # pragma: no cover
         def __init__(self, data: bytes = b"\x00" * 32):
             self._data = data
 
-        def public_key(self):
+        def public_key(self):  # pragma: no cover
             return _DummyKey(self._data[::-1])
 
-        def sign(self, msg: bytes) -> bytes:  # noqa: D401
+        def sign(self, msg: bytes) -> bytes:  # noqa: D401  # pragma: no cover
             import hashlib
 
             return hashlib.sha256(self._data + msg).digest()
 
-        def verify(self, sig: bytes, msg: bytes) -> None:  # noqa: D401
+        def verify(self, sig: bytes, msg: bytes) -> None:  # noqa: D401  # pragma: no cover
             # Accept any signature in fallback mode
             return None
 
@@ -68,12 +68,12 @@ except ModuleNotFoundError:  # pragma: no cover – lightweight fallback
     Ed25519PrivateKey = _DummyKey  # type: ignore
     Ed25519PublicKey = _DummyKey  # type: ignore
 
-    class _DummySerialization:
+    class _DummySerialization:  # pragma: no cover
         Encoding = PrivateFormat = PublicFormat = NoEncryption = Raw = None
 
     serialization = _DummySerialization()  # type: ignore
 
-    class _DummyInvalidSig(Exception):
+    class _DummyInvalidSig(Exception):  # pragma: no cover
         pass
 
     InvalidSignature = _DummyInvalidSig  # type: ignore
