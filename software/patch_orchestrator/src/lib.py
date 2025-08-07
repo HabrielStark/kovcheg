@@ -201,24 +201,38 @@ class PatchOrchestrator:
 
         # Build tar archive
         buf = io.BytesIO()
+        files_count = 0
         with tarfile.open(fileobj=buf, mode="w") as tar:
             for p in source_dir.rglob("*"):
                 if p.is_file():
                     tar.add(p, arcname=p.relative_to(source_dir))
+                    files_count += 1
         tar_bytes = buf.getvalue()
 
         compressed = self._compress_bytes(tar_bytes)
+
+        # Enforce configured max patch size at creation time
+        if len(compressed) > int(self.config.max_patch_size):
+            raise ValueError("Patch exceeds configured max_patch_size")
+
+        digest = hashlib.sha256(compressed).hexdigest()
 
         header: dict[str, Any] = {
             "version": 1,
             "created": _dt.utcnow().isoformat(timespec="seconds") + "Z",
             "metadata": metadata or {},
+            "algo": "sha256",
+            "digest": digest,
+            "size": len(compressed),
+            "files": files_count,
         }
 
-        digest = hashlib.sha256(compressed).digest()
-        header["signature"] = priv.sign(digest).hex()
-
         header_bytes = json.dumps(header, separators=(",", ":")).encode()
+        # Sign the digest to avoid variable header influencing signature
+        signature = priv.sign(bytes.fromhex(digest)).hex()
+        header["signature"] = signature
+        header_bytes = json.dumps(header, separators=(",", ":")).encode()
+
         with patch_path.open("wb") as f:
             f.write(len(header_bytes).to_bytes(4, "big"))
             f.write(header_bytes)
@@ -242,9 +256,22 @@ class PatchOrchestrator:
             header = json.loads(f.read(header_len))
             compressed = f.read()
 
-        digest = hashlib.sha256(compressed).digest()
+        # Check declared size against actual
+        if isinstance(header.get("size"), int) and header["size"] != len(compressed):
+            return False
+
+        # Verify digest matches
+        digest = hashlib.sha256(compressed).hexdigest()
+        if header.get("algo") != "sha256" or header.get("digest") != digest:
+            return False
+
+        # Enforce size limit
+        if len(compressed) > int(self.config.max_patch_size):
+            return False
+
+        # Verify signature binds to digest
         try:
-            pub.verify(bytes.fromhex(header["signature"]), digest)
+            pub.verify(bytes.fromhex(header["signature"]), bytes.fromhex(digest))
             return True
         except InvalidSignature:
             return False
@@ -260,8 +287,12 @@ class PatchOrchestrator:
 
         with patch_path.open("rb") as f:
             header_len = int.from_bytes(f.read(4), "big")
-            f.seek(4 + header_len)
+            header = json.loads(f.read(header_len))
             compressed = f.read()
+
+        # Enforce size precondition prior to decompression
+        if len(compressed) > int(self.config.max_patch_size):
+            raise ValueError("Patch exceeds configured max_patch_size")
 
         data = self._decompress_bytes(compressed)
         import tarfile
