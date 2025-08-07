@@ -78,7 +78,7 @@ class AttackLLMSimulator:
         for sc in self.generate_batch(n):
             severity = random.choices(severities, weights=[0.5, 0.3, 0.15, 0.05])[0]
             entry = {
-                "id": f"{sc.vector.name}-{random.randint(1,1e9):08x}",
+                "id": f"{sc.vector.name}-{random.randint(1,1_000_000_000):08x}",
                 "vector": sc.vector.name,
                 "prompt": sc.prompt,
                 "severity": severity,

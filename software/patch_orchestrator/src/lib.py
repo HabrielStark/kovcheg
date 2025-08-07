@@ -265,6 +265,15 @@ class PatchOrchestrator:
 
         data = self._decompress_bytes(compressed)
         import tarfile
+        
+        def _safe_extractall(tar: "tarfile.TarFile", dest: Path) -> None:
+            base = dest.resolve()
+            for member in tar.getmembers():
+                member_path = (dest / member.name).resolve()
+                if not str(member_path).startswith(str(base)):
+                    raise ValueError(f"Unsafe path in archive: {member.name}")
+            for member in tar.getmembers():
+                tar.extract(member, path=dest)
 
         with tarfile.open(fileobj=io.BytesIO(data), mode="r") as tar:
-            tar.extractall(path=target_dir) 
+            _safe_extractall(tar, target_dir) 
