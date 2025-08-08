@@ -190,7 +190,7 @@ class PatchOrchestrator:
 
         import tarfile
         import hashlib
-        from datetime import datetime as _dt
+        from datetime import datetime as _dt, timezone as _tz
 
         self.ensure_keys()
         priv_bytes: bytes = private_key or self.config.signing_keys["priv"]
@@ -219,7 +219,7 @@ class PatchOrchestrator:
 
         header: dict[str, Any] = {
             "version": 1,
-            "created": _dt.utcnow().isoformat(timespec="seconds") + "Z",
+            "created": _dt.now(_tz.utc).isoformat(timespec="seconds"),
             "metadata": metadata or {},
             "algo": "sha256",
             "digest": digest,
@@ -251,8 +251,11 @@ class PatchOrchestrator:
         else:
             pub = Ed25519PublicKey(pub_bytes)  # type: ignore
 
+        MAX_HEADER_LEN = 65536
         with patch_path.open("rb") as f:
             header_len = int.from_bytes(f.read(4), "big")
+            if header_len <= 0 or header_len > MAX_HEADER_LEN:
+                return False
             header = json.loads(f.read(header_len))
             compressed = f.read()
 
@@ -285,8 +288,11 @@ class PatchOrchestrator:
 
         await asyncio.sleep(0.005)  # simulate async IO wait
 
+        MAX_HEADER_LEN = 65536
         with patch_path.open("rb") as f:
             header_len = int.from_bytes(f.read(4), "big")
+            if header_len <= 0 or header_len > MAX_HEADER_LEN:
+                raise ValueError("Invalid patch header length")
             header = json.loads(f.read(header_len))
             compressed = f.read()
 

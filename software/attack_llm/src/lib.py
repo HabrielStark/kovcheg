@@ -10,7 +10,7 @@ import random
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 
 __all__ = [
     "AttackScenario",
@@ -83,7 +83,7 @@ class AttackLLMSimulator:
                 "prompt": sc.prompt,
                 "severity": severity,
                 "detected": False,
-                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
             }
             out.append(entry)
         return out 
