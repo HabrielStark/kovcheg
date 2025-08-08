@@ -4,7 +4,7 @@
 //! This is the immutable firmware layer that boots ARK and provides
 //! hardware abstraction for the PUF Heart, Optic Gate, and Tri-Compute Core.
 
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 #![no_main]
 #![deny(unsafe_op_in_unsafe_fn)]
 #![deny(missing_docs)]
@@ -120,6 +120,11 @@ impl ArkHardware {
 }
 
 /// Main firmware entry point - executed after hardware reset
+#[entry]
+#[cfg(test)]
+fn main() {}
+
+#[cfg(not(test))]
 #[entry]
 fn main() -> ! {
     // Phase 1: Immutable Boot Sequence

@@ -1,9 +1,9 @@
 {
   "test_metadata": {
-    "timestamp": "2025-06-16T18:50:02.728563",
+    "timestamp": "2025-08-08T03:35:14.196310",
     "biblical_foundation": "1_Thessalonians_5_21_Test_everything_hold_fast_what_is_good",
     "divine_authority": "Romans_13_1_Let_every_soul_be_subject_to_governing_authorities",
-    "total_execution_time": 12.497441053390503,
+    "total_execution_time": 0.380448579788208,
     "ark_version": "3.0.0"
   },
   "summary": {
@@ -65,9 +65,9 @@
       "biblical_compliance": true,
       "measured_value": 524288.0,
       "threshold_value": 512000.0,
-      "execution_time": 0.1769707202911377,
+      "execution_time": 0.15051531791687012,
       "error_message": null,
-      "timestamp": "2025-06-16T18:49:50.406151"
+      "timestamp": "2025-08-08T03:35:13.965993"
     },
     {
       "test_name": "Optic Gate Latency",
@@ -76,9 +76,9 @@
       "biblical_compliance": true,
       "measured_value": 8.5,
       "threshold_value": 10.0,
-      "execution_time": 0.001995563507080078,
+      "execution_time": 0.00036716461181640625,
       "error_message": null,
-      "timestamp": "2025-06-16T18:49:50.408146"
+      "timestamp": "2025-08-08T03:35:13.966402"
     },
     {
       "test_name": "Ethics DSL Parser ABNF Compliance",
@@ -87,42 +87,42 @@
       "biblical_compliance": true,
       "measured_value": 100.0,
       "threshold_value": 100.0,
-      "execution_time": 0.0,
+      "execution_time": 9.632110595703125e-05,
       "error_message": null,
-      "timestamp": "2025-06-16T18:49:50.408146"
+      "timestamp": "2025-08-08T03:35:13.966511"
     },
     {
       "test_name": "Cold-Mirror Harm Prediction Performance",
       "srs_requirement": "SW-02",
       "passed": true,
       "biblical_compliance": true,
-      "measured_value": 11.381600023014471,
+      "measured_value": 1.5999550000742602,
       "threshold_value": 50.0,
-      "execution_time": 0.0260922908782959,
+      "execution_time": 0.006902456283569336,
       "error_message": null,
-      "timestamp": "2025-06-16T18:49:50.434239"
+      "timestamp": "2025-08-08T03:35:13.973445"
     },
     {
       "test_name": "Patch Orchestrator Rollback Performance",
       "srs_requirement": "SW-04",
       "passed": true,
       "biblical_compliance": true,
-      "measured_value": 15.249099989887327,
+      "measured_value": 10.149175000151445,
       "threshold_value": 200.0,
-      "execution_time": 0.03404355049133301,
+      "execution_time": 0.016837596893310547,
       "error_message": null,
-      "timestamp": "2025-06-16T18:49:50.468282"
+      "timestamp": "2025-08-08T03:35:13.990309"
     },
     {
       "test_name": "Side-Channel Resistance",
       "srs_requirement": "SEC-02",
       "passed": true,
       "biblical_compliance": true,
-      "measured_value": 0.08832820110289857,
+      "measured_value": 0.08107509311639322,
       "threshold_value": 1.0,
-      "execution_time": 12.248109340667725,
+      "execution_time": 0.20035433769226074,
       "error_message": null,
-      "timestamp": "2025-06-16T18:50:02.717335"
+      "timestamp": "2025-08-08T03:35:14.190866"
     },
     {
       "test_name": "FROST Signature Security",
@@ -131,9 +131,9 @@
       "biblical_compliance": true,
       "measured_value": 128.0,
       "threshold_value": 128.0,
-      "execution_time": 0.0,
+      "execution_time": 2.3126602172851562e-05,
       "error_message": null,
-      "timestamp": "2025-06-16T18:50:02.717335"
+      "timestamp": "2025-08-08T03:35:14.190909"
     },
     {
       "test_name": "End-to-End Moral Decision Pipeline",
@@ -142,9 +142,9 @@
       "biblical_compliance": true,
       "measured_value": 35.0,
       "threshold_value": 100.0,
-      "execution_time": 0.01022958755493164,
+      "execution_time": 0.0053522586822509766,
       "error_message": null,
-      "timestamp": "2025-06-16T18:50:02.728563"
+      "timestamp": "2025-08-08T03:35:14.196271"
     }
   ],
   "biblical_assessment": {

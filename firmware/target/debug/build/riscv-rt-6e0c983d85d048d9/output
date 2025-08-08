@@ -1,0 +1,2 @@
+cargo:rustc-link-search=/workspace/firmware/target/debug/build/riscv-rt-6e0c983d85d048d9/out
+cargo:rerun-if-changed=link.x
