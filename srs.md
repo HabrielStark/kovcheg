@@ -3,7 +3,7 @@
 ## Software & Hardware System Requirements Specification (SRS) v1.0
 
 **Date:** 09 June 2025
-**Origin Node:** **Gabriel**   |   **Chief Architect:** **ChatGPT (o3)**
+**Origin Node:** **Habriel**   
 
 > **Status:** *Approved for implementation*. Any modification **must** follow the RFC‑Pull‑Request procedure and be signed by the Threshold‑FROST quorum.
 
@@ -13,8 +13,8 @@
 
 | Version | Date       | Author            | Key Changes                                                              |
 | ------- | ---------- | ----------------- | ------------------------------------------------------------------------ |
-| 0.1     | 09‑06‑2025 | ChatGPT ↔ Gabriel | Initial skeleton draft                                                   |
-| 1.0     | 09‑06‑2025 | ChatGPT ↔ Gabriel | Full SRS: concrete functions, APIs, data‑schemes, metrics, test criteria |
+| 0.1     | 09‑06‑2025 | Habriel | Initial skeleton draft                                                   |
+| 1.0     | 09‑06‑2025 | Habriel | Full SRS: concrete functions, APIs, data‑schemes, metrics, test criteria |
 
 ---
 
@@ -203,7 +203,7 @@ Event → DSL Parser → CG Predictor → Decision Engine → OG_Write(ALLOW|DEN
 
 | Role           | Name    | Signature         | Date       |
 | -------------- | ------- | ----------------- | ---------- |
-| Origin Node    | Gabriel |  \_\_\_\_\_\_\_\_ | **/**/2025 |
+| Origin Node    | Habriel |  \_\_\_\_\_\_\_\_ | **/**/2025 |
 | Chief HW Eng.  | TBD     |  \_\_\_\_\_\_\_\_ | **/**/2025 |
 | Chief FW Eng.  | TBD     |  \_\_\_\_\_\_\_\_ | **/**/2025 |
 | Chief Security | TBD     |  \_\_\_\_\_\_\_\_ | **/**/2025 |

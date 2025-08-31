@@ -13,9 +13,20 @@ use std::path::{Path, PathBuf};
 use std::time::{Duration, SystemTime};
 
 use serde::{Deserialize, Serialize};
-use blake3::Hash;
+use blake3::{Hash, Hasher};
 use zeroize::{Zeroize, ZeroizeOnDrop};
 use tracing::{info, warn, error, debug};
+
+// Post-quantum imports
+use pqcrypto_dilithium::{
+    sign as dilithium_sign,
+    verify as dilithium_verify,
+    keypair as dilithium_keypair,
+    PublicKey as DilithiumPublicKey,
+    SecretKey as DilithiumSecretKey,
+    Signature as DilithiumSignature,
+};
+use ed25519_dalek::{Keypair as Ed25519Keypair, PublicKey as Ed25519PublicKey, Signature as Ed25519Signature};
 
 use ethics_dsl::{EthicsEngine, Decision, Actor, Content, Context};
 use cold_mirror::{HarmPredictor, HarmCategory, RiskLevel};
@@ -73,6 +84,23 @@ pub struct PatchMetadata {
     pub harm_analysis: HarmAnalysis,
     pub created_at: SystemTime,
     pub expires_at: Option<SystemTime>,
+    /// Post-quantum signature (Dilithium3)
+    pub pq_signature: Option<Vec<u8>>,
+    /// Classical signature (Ed25519) for backwards compatibility
+    pub classical_signature: Option<Vec<u8>>,
+    /// Signature algorithm used
+    pub signature_algorithm: SignatureAlgorithm,
+}
+
+/// Signature algorithm for patches
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub enum SignatureAlgorithm {
+    /// Classical Ed25519
+    Ed25519,
+    /// Post-quantum Dilithium3
+    Dilithium3,
+    /// Hybrid Ed25519 + Dilithium3
+    HybridEd25519Dilithium3,
 }
 
 /// Patch criticality levels
@@ -136,6 +164,10 @@ pub struct PatchOrchestrator {
     harm_predictor: HarmPredictor,
     pending_patches: HashMap<String, PatchMetadata>,
     applied_patches: HashMap<String, PatchMetadata>,
+    /// Post-quantum signing keypair
+    pq_signing_key: Option<(DilithiumPublicKey, DilithiumSecretKey)>,
+    /// Classical signing keypair for hybrid mode
+    classical_signing_key: Option<Ed25519Keypair>,
 }
 
 impl PatchOrchestrator {
@@ -160,12 +192,24 @@ impl PatchOrchestrator {
         std::fs::create_dir_all(&config.backup_directory)
             .map_err(|e| OrchestratorError::DirectoryCreation(e.to_string()))?;
         
+        // Generate post-quantum signing keys
+        let (pq_public, pq_secret) = dilithium_keypair();
+        
+        // Generate classical signing key for hybrid mode
+        use rand::rngs::OsRng;
+        let classical_keypair = Ed25519Keypair::generate(&mut OsRng);
+        
+        info!("Generated post-quantum signing keys (Dilithium3)");
+        info!("Generated classical signing keys (Ed25519) for hybrid mode");
+        
         Ok(Self {
             config,
             ethics_engine,
             harm_predictor,
             pending_patches: HashMap::new(),
             applied_patches: HashMap::new(),
+            pq_signing_key: Some((pq_public, pq_secret)),
+            classical_signing_key: Some(classical_keypair),
         })
     }
     
@@ -562,6 +606,119 @@ impl PatchOrchestrator {
         }
     }
     
+    /// Sign patch with post-quantum signature
+    pub fn sign_patch(&self, patch: &mut PatchMetadata, algorithm: SignatureAlgorithm) -> Result<(), OrchestratorError> {
+        // Serialize patch data for signing (excluding signatures)
+        let mut patch_copy = patch.clone();
+        patch_copy.pq_signature = None;
+        patch_copy.classical_signature = None;
+        
+        let patch_bytes = bincode::serialize(&patch_copy)
+            .map_err(|e| OrchestratorError::SignatureError(format!("Serialization failed: {}", e)))?;
+        
+        match algorithm {
+            SignatureAlgorithm::Dilithium3 => {
+                let (_, secret_key) = self.pq_signing_key.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No PQ signing key available".into()))?;
+                
+                let signature = dilithium_sign(&patch_bytes, secret_key);
+                patch.pq_signature = Some(signature);
+                patch.signature_algorithm = SignatureAlgorithm::Dilithium3;
+                
+                info!("Patch {} signed with Dilithium3 (post-quantum)", patch.id);
+            }
+            SignatureAlgorithm::Ed25519 => {
+                let keypair = self.classical_signing_key.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No classical signing key available".into()))?;
+                
+                let signature = keypair.sign(&patch_bytes);
+                patch.classical_signature = Some(signature.to_bytes().to_vec());
+                patch.signature_algorithm = SignatureAlgorithm::Ed25519;
+                
+                info!("Patch {} signed with Ed25519 (classical)", patch.id);
+            }
+            SignatureAlgorithm::HybridEd25519Dilithium3 => {
+                // Sign with both algorithms
+                let (_, pq_secret) = self.pq_signing_key.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No PQ signing key available".into()))?;
+                let classical_keypair = self.classical_signing_key.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No classical signing key available".into()))?;
+                
+                let pq_signature = dilithium_sign(&patch_bytes, pq_secret);
+                let classical_signature = classical_keypair.sign(&patch_bytes);
+                
+                patch.pq_signature = Some(pq_signature);
+                patch.classical_signature = Some(classical_signature.to_bytes().to_vec());
+                patch.signature_algorithm = SignatureAlgorithm::HybridEd25519Dilithium3;
+                
+                info!("Patch {} signed with hybrid Ed25519+Dilithium3", patch.id);
+            }
+        }
+        
+        Ok(())
+    }
+    
+    /// Verify patch signature
+    pub fn verify_patch_signature(&self, patch: &PatchMetadata, public_keys: &PatchPublicKeys) -> Result<bool, OrchestratorError> {
+        // Serialize patch data for verification (excluding signatures)
+        let mut patch_copy = patch.clone();
+        patch_copy.pq_signature = None;
+        patch_copy.classical_signature = None;
+        
+        let patch_bytes = bincode::serialize(&patch_copy)
+            .map_err(|e| OrchestratorError::SignatureError(format!("Serialization failed: {}", e)))?;
+        
+        match patch.signature_algorithm {
+            SignatureAlgorithm::Dilithium3 => {
+                let signature = patch.pq_signature.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No PQ signature present".into()))?;
+                
+                dilithium_verify(signature, &patch_bytes, &public_keys.dilithium_public)
+                    .map_err(|_| OrchestratorError::SignatureError("Dilithium signature verification failed".into()))?;
+                
+                Ok(true)
+            }
+            SignatureAlgorithm::Ed25519 => {
+                let signature_bytes = patch.classical_signature.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No classical signature present".into()))?;
+                
+                let signature = Ed25519Signature::from_bytes(
+                    &<[u8; 64]>::try_from(signature_bytes.as_slice())
+                        .map_err(|_| OrchestratorError::SignatureError("Invalid Ed25519 signature format".into()))?
+                );
+                
+                use ed25519_dalek::Verifier;
+                public_keys.ed25519_public.verify(&patch_bytes, &signature)
+                    .map_err(|_| OrchestratorError::SignatureError("Ed25519 signature verification failed".into()))?;
+                
+                Ok(true)
+            }
+            SignatureAlgorithm::HybridEd25519Dilithium3 => {
+                // Verify both signatures
+                let pq_signature = patch.pq_signature.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No PQ signature present".into()))?;
+                let classical_signature_bytes = patch.classical_signature.as_ref()
+                    .ok_or_else(|| OrchestratorError::SignatureError("No classical signature present".into()))?;
+                
+                // Verify Dilithium
+                dilithium_verify(pq_signature, &patch_bytes, &public_keys.dilithium_public)
+                    .map_err(|_| OrchestratorError::SignatureError("Dilithium signature verification failed".into()))?;
+                
+                // Verify Ed25519
+                let classical_signature = Ed25519Signature::from_bytes(
+                    &<[u8; 64]>::try_from(classical_signature_bytes.as_slice())
+                        .map_err(|_| OrchestratorError::SignatureError("Invalid Ed25519 signature format".into()))?
+                );
+                
+                use ed25519_dalek::Verifier;
+                public_keys.ed25519_public.verify(&patch_bytes, &classical_signature)
+                    .map_err(|_| OrchestratorError::SignatureError("Ed25519 signature verification failed".into()))?;
+                
+                Ok(true)
+            }
+        }
+    }
+    
     /// Get system status and patch information
     pub fn get_system_status(&self) -> SystemStatus {
         SystemStatus {
@@ -572,6 +729,12 @@ impl PatchOrchestrator {
             biblical_compliance: true,
         }
     }
+}
+
+/// Public keys for patch signature verification
+pub struct PatchPublicKeys {
+    pub dilithium_public: DilithiumPublicKey,
+    pub ed25519_public: Ed25519PublicKey,
 }
 
 /// System status information
@@ -625,6 +788,9 @@ pub enum OrchestratorError {
     
     #[error("Unsupported component: {0}")]
     UnsupportedComponent(String),
+    
+    #[error("Signature error: {0}")]
+    SignatureError(String),
 }
 
 #[cfg(test)]
