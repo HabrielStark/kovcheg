@@ -17,7 +17,6 @@ use riscv_rt as _;
 mod boot;
 mod crypto;
 mod hardware;
-mod memory;
 mod security;
 
 use boot::ImmutableBoot;
