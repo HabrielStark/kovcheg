@@ -3,6 +3,8 @@
 
 #![no_std]
 
+extern crate alloc;
+
 // Only expose these modules when testing
 #[cfg(test)]
 extern crate std;
@@ -13,4 +15,6 @@ pub mod crypto;
 pub use crypto::{CryptoContext, CryptoError, SecureKey};
 
 #[cfg(feature = "post-quantum")]
-pub use crypto::{PQAlgorithm, PQEncryptedData, HybridEncryptedData, HybridSignature, PQPublicKeys};
+pub use crypto::{
+    HybridEncryptedData, HybridSignature, PQAlgorithm, PQEncryptedData, PQPublicKeys,
+};
