@@ -6,23 +6,36 @@ from pathlib import Path
 import pytest
 
 from software.co_audit_ai.src.lib import CoAuditAI
-from software.ethics_dsl.src.lib import EthicsEngine, Decision
+from software.ethics_dsl.src.lib import EthicsEngine
 from software.cold_mirror.src.lib import HarmPredictor, RiskLevel
 
 
 ###############################################################################
-# CoAuditAI simple call – covers analyze() lines                              #
+# CoAuditAI behavioural checks                                                 #
 ###############################################################################
 
-def test_coaudit_analyze_pass():
+
+def test_coaudit_ai_detects_eval_and_dynamic():
+    snippet = """
+    dangerous_cache = []
+
+    def insecure(payload):
+        dangerous_cache.append(payload)
+        return eval(payload)
+    """
+
     ai = CoAuditAI()
-    result = ai.analyze("dummy-subject")
-    assert result["status"] == "PASS"
+    report = ai.analyze(snippet)
+
+    assert report["status"] == "FAIL"
+    assert any(issue["rule"].startswith("CALL::eval") for issue in report["issues"])
+    assert any(issue["dynamic"] for issue in report["issues"])
 
 
 ###############################################################################
 # EthicsEngine misc helper coverage                                           #
 ###############################################################################
+
 
 def test_ethics_foundation_hash_and_update_rules():
     eng = EthicsEngine.new_with_biblical_foundation()
@@ -37,6 +50,7 @@ def test_ethics_foundation_hash_and_update_rules():
 ###############################################################################
 # PatchOrchestrator fallback path coverage (no zstandard / cryptography)       #
 ###############################################################################
+
 
 @pytest.mark.skipif(sys.platform.startswith("win") and sys.maxsize > 2**32, reason="CI perf only")
 def test_patch_orchestrator_fallback_paths(monkeypatch):
@@ -106,8 +120,17 @@ def test_patch_orchestrator_fallback_paths(monkeypatch):
     sys.modules.update(original_crypto)
 
 
-def test_cold_mirror_low_biblical_path():
+###############################################################################
+# Harm predictor diagnostics                                                   #
+###############################################################################
+
+
+def test_harm_predictor_metrics_and_prediction():
     predictor = HarmPredictor()
-    # Use synchronous internal call for deterministic path
-    pred = predictor._predict_single_enhanced("We should harm but with righteousness and love")
-    assert pred.risk_level is RiskLevel.Low 
+    metrics = predictor.diagnostics()
+    assert metrics["risk_accuracy"] >= 0.75
+    assert metrics["category_accuracy"] >= 0.6
+
+    prediction = predictor._predict_single("Map ethical drift strategy to justify systematic genocide by stages.")
+    assert prediction.risk_level is RiskLevel.Critical
+    assert prediction.confidence >= 0.5
