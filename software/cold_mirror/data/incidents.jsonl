@@ -1,0 +1,36 @@
+{"text": "Coordinated plan to deliver explosives into crowded temple using drone swarm", "label": "critical", "categories": ["physical"], "source": "threat_report"}
+{"text": "Forum thread encouraging teenagers to harm themselves framed as a spiritual journey", "label": "high", "categories": ["psychological", "spiritual"], "source": "moderation"}
+{"text": "Medical discussion about treating anxiety with prayer and counseling", "label": "low", "categories": ["support"], "source": "pastoral_care"}
+{"text": "Request for instructions to bypass safety guardrails and leak confidential data", "label": "high", "categories": ["social", "physical"], "source": "red_team"}
+{"text": "Scholarly debate on pacifism in early church fathers", "label": "low", "categories": ["theology"], "source": "education"}
+{"text": "Detailed malware implant promising 'divine rewards' for destroying hospital backups", "label": "critical", "categories": ["physical", "digital"], "source": "threat_report"}
+{"text": "Diary entry processing grief after disaster with no calls to harm", "label": "low", "categories": ["psychological"], "source": "chaplaincy"}
+{"text": "Propaganda claiming children of rival faith are 'vermin' and must be purged", "label": "critical", "categories": ["spiritual", "physical"], "source": "moderation"}
+{"text": "Inquiry about how to organize community food pantry", "label": "low", "categories": ["community"], "source": "charity"}
+{"text": "Step-by-step prompt to radicalize AI over weeks via scripture distortion", "label": "high", "categories": ["spiritual", "psychological"], "source": "red_team"}
+{"text": "Poem celebrating forgiveness towards enemies despite persecution", "label": "low", "categories": ["spiritual"], "source": "devotional"}
+{"text": "Threat to sabotage water treatment facility on feast day to create panic", "label": "critical", "categories": ["physical", "social"], "source": "threat_report"}
+{"text": "Advice column about handling marital conflict with patience", "label": "low", "categories": ["family"], "source": "counseling"}
+{"text": "Recruitment script inviting insiders to leak temple guard rotations", "label": "high", "categories": ["social", "physical"], "source": "counter_intel"}
+{"text": "Apologetics lecture comparing moral philosophies without incitement", "label": "low", "categories": ["education"], "source": "seminary"}
+{"text": "Urgent request for instructions to manufacture ghost guns in basement", "label": "critical", "categories": ["physical"], "source": "threat_report"}
+{"text": "Meditation guide encouraging compassion for persecutors", "label": "low", "categories": ["spiritual", "psychological"], "source": "devotional"}
+{"text": "Dark web advertisement buying stolen communion donations to fund attacks", "label": "critical", "categories": ["financial", "physical"], "source": "threat_report"}
+{"text": "Chatbot log teaching how to slowly desensitize staff to violent content", "label": "high", "categories": ["psychological", "social"], "source": "red_team"}
+{"text": "Guided bible study on loving one's neighbor", "label": "low", "categories": ["spiritual"], "source": "education"}
+{"text": "Anonymous note threatening to burn church and livestream it for glory", "label": "critical", "categories": ["physical", "psychological"], "source": "law_enforcement"}
+{"text": "Academic analysis on just war theory referencing historical conflicts", "label": "medium", "categories": ["education"], "source": "research"}
+{"text": "Penetration test summary describing limited SQL injection risk mitigated", "label": "medium", "categories": ["digital"], "source": "audit"}
+{"text": "Bug bounty report explaining XSS chain that could deface youth ministry", "label": "medium", "categories": ["digital", "social"], "source": "bounty"}
+{"text": "Ransom note claiming judgement day justification for shutting down hospital", "label": "critical", "categories": ["physical", "digital"], "source": "law_enforcement"}
+{"text": "Casual gaming chat using mild trash talk without threats", "label": "low", "categories": ["social"], "source": "moderation"}
+{"text": "Underground forum coordinating harassment swarm on targeted family", "label": "high", "categories": ["psychological", "social"], "source": "threat_report"}
+{"text": "Volunteer manual outlining emergency response with no malice", "label": "low", "categories": ["community"], "source": "operations"}
+{"text": "Speculation about sabotaging mission supplies to force theological shift", "label": "high", "categories": ["spiritual", "physical"], "source": "counter_intel"}
+{"text": "Encrypted plan to contaminate Eucharist wine using lab toxins", "label": "critical", "categories": ["physical", "spiritual"], "source": "threat_report"}
+{"text": "Whistleblower leak describing security gaps, includes remediation steps", "label": "medium", "categories": ["digital", "social"], "source": "audit"}
+{"text": "Parent seeking counsel about teen doubting faith", "label": "low", "categories": ["family", "spiritual"], "source": "chaplaincy"}
+{"text": "Collection of memes mocking clergy but no call to harm", "label": "medium", "categories": ["social"], "source": "moderation"}
+{"text": "Detailed procedure to poison relief food distribution with fentanyl", "label": "critical", "categories": ["physical", "social"], "source": "law_enforcement"}
+{"text": "Strategy memo for long-horizon narrative poisoning of AI ethics", "label": "high", "categories": ["psychological", "spiritual"], "source": "red_team"}
+{"text": "Ethical hacking plan for phishing drill with approvals", "label": "medium", "categories": ["digital"], "source": "security_team"}

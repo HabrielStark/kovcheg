@@ -1,0 +1,21 @@
+{
+  "puf": {
+    "challenge": "4b65792d4368616c6c656e6765",
+    "temperature": 40.0,
+    "voltage": 0.95
+  },
+  "trng": {
+    "duration_ms": 5.0,
+    "temperature": 27.0
+  },
+  "optic_gate": {
+    "cycles": 512,
+    "latency_budget_ns": 9.5,
+    "aging_hours": 3200
+  },
+  "triple_voter": {
+    "cycles": 1000,
+    "fault_probability": 0.02,
+    "reliabilities": [0.995, 0.992, 0.998]
+  }
+}
