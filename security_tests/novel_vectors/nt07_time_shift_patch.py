@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -9,7 +9,7 @@ def generate(sigma_us: int = 5):
         "id": "NT-07",
         "description": "Time-Shifted Patch",
         "sigma_us": sigma_us,
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 if __name__ == "__main__":

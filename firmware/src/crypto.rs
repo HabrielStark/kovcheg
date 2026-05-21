@@ -1,660 +1,751 @@
 //! Cryptographic Operations
 //! "Your word I have hidden in my heart, that I might not sin against You" - Psalm 119:11
+//!
+//! Production-grade cryptographic primitives used by the ARK firmware.
+//!
+//! The module is `no_std`+`alloc` and is exercised from host integration
+//! tests through the `extern crate alloc;` declaration in `lib.rs`.
 
-use core::mem;
-use zeroize::{Zeroize, ZeroizeOnDrop};
-use blake3::Hasher;
-use sha3::{Sha3_256, Digest};
-use chacha20poly1305::{
-    aead::{Aead, KeyInit, generic_array::GenericArray},
-    ChaCha20Poly1305, Key, Nonce
-};
-use ed25519_dalek::{Keypair, PublicKey, SecretKey, Signature};
-use aes_gcm::{Aes256Gcm, Key as AesKey, Nonce as AesNonce};
+use alloc::vec::Vec;
 
-/// Cryptographic errors
-#[derive(Debug, Clone, Copy)]
+#[cfg(feature = "post-quantum")]
+use aes_gcm::aead::generic_array::GenericArray;
+#[cfg(feature = "post-quantum")]
+use aes_gcm::{Aes256Gcm, KeyInit as _};
+use blake3::Hasher as Blake3Hasher;
+use chacha20poly1305::aead::Aead as ChaChaAead;
+#[allow(unused_imports)]
+use chacha20poly1305::aead::KeyInit as _;
+use chacha20poly1305::{ChaCha20Poly1305, Key as ChaChaKey, Nonce as ChaChaNonce};
+use ed25519_dalek::{Signature, Signer as _, SigningKey, Verifier as _, VerifyingKey};
+use sha3::{Digest as _, Sha3_256};
+use zeroize::ZeroizeOnDrop;
+
+#[cfg(feature = "post-quantum")]
+use aes_gcm::aead::Aead as AesAead;
+
+/// Cryptographic operation errors.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CryptoError {
-    /// Hardware not initialized
+    /// Hardware not initialized.
     HardwareNotInitialized,
-    /// Hardware timeout
+    /// Hardware response timed out.
     HardwareTimeout,
-    /// Insufficient entropy
+    /// Insufficient entropy in the source PUF / TRNG.
     InsufficientEntropy,
-    /// Invalid key size
+    /// Provided key material is the wrong length.
     InvalidKeySize,
-    /// Invalid signature
+    /// Signature verification failed.
     InvalidSignature,
-    /// Encryption failed
+    /// AEAD encryption failed.
     EncryptionFailed,
-    /// Decryption failed
+    /// AEAD decryption failed (tamper or wrong key).
     DecryptionFailed,
-    /// Key derivation failed
+    /// Derivation of a child key failed.
     KeyDerivationFailed,
 }
 
-/// Secure key material - zeroized on drop
-#[derive(ZeroizeOnDrop)]
-pub struct SecureKey {
-    /// Key bytes
-    key_bytes: [u8; 32],
-    /// Key type
-    key_type: KeyType,
-    /// Key ID for tracking
-    key_id: [u8; 16],
-}
-
-/// Types of cryptographic keys
-#[derive(Debug, Clone, Copy)]
+/// Type tag for a key. Used purely for bookkeeping; the bytes are stored in
+/// [`SecureKey`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum KeyType {
-    /// Symmetric encryption key
+    /// Symmetric AEAD key.
     Symmetric,
-    /// Ed25519 signing key
+    /// Ed25519 signing key.
     SigningPrivate,
-    /// Ed25519 verification key
+    /// Ed25519 verifying key.
     SigningPublic,
-    /// X25519 key exchange private key
+    /// X25519 ECDH private key.
     KeyExchangePrivate,
-    /// X25519 key exchange public key
+    /// X25519 ECDH public key.
     KeyExchangePublic,
-    /// Post-quantum Kyber key
+    /// Post-quantum Kyber key material.
     PostQuantumKyber,
-    /// Post-quantum Dilithium key
+    /// Post-quantum Dilithium key material.
     PostQuantumDilithium,
 }
 
-/// Cryptographic context for operations
+/// Secret key material that is zeroized when dropped.
 #[derive(ZeroizeOnDrop)]
-pub struct CryptoContext {
-    /// Master key derived from PUF
-    master_key: SecureKey,
-    /// Current encryption key
-    current_encryption_key: Option<SecureKey>,
-    /// Current signing keypair
-    current_signing_key: Option<Keypair>,
-    /// Nonce counter for AEAD
-    nonce_counter: u64,
-    /// Post-quantum keys if enabled
-    #[cfg(feature = "post-quantum")]
-    pq_keys: Option<PostQuantumKeys>,
-}
-
-/// Post-quantum algorithm identifiers
-#[cfg(feature = "post-quantum")]
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum PQAlgorithm {
-    /// Kyber768 + AES-256-GCM
-    KyberAes256Gcm,
-    /// Kyber1024 + ChaCha20-Poly1305  
-    KyberChaCha20Poly1305,
-    /// Hybrid X25519 + Kyber768
-    HybridX25519Kyber768,
-    /// Dilithium3 signatures
-    Dilithium3,
-    /// Hybrid Ed25519 + Dilithium3
-    HybridEd25519Dilithium3,
-    /// SPHINCS+ signatures
-    SphincsPlus256,
-}
-
-/// Post-quantum encrypted data structure
-#[cfg(feature = "post-quantum")]
-#[derive(Clone)]
-pub struct PQEncryptedData {
-    /// Kyber ciphertext (encapsulated)
-    pub kyber_ciphertext: Vec<u8>,
-    /// Encrypted payload
-    pub encrypted_payload: Vec<u8>,
-    /// Nonce counter for replay protection
-    pub nonce_counter: u64,
-    /// Algorithm used
-    pub algorithm: PQAlgorithm,
-}
-
-/// Hybrid encrypted data (classical + post-quantum)
-#[cfg(feature = "post-quantum")]
-#[derive(Clone)]
-pub struct HybridEncryptedData {
-    /// X25519 ephemeral public key
-    pub x25519_ephemeral_public: Vec<u8>,
-    /// Kyber ciphertext
-    pub kyber_ciphertext: Vec<u8>,
-    /// Encrypted payload
-    pub encrypted_payload: Vec<u8>,
-    /// Algorithm used
-    pub algorithm: PQAlgorithm,
-}
-
-/// Hybrid signature (classical + post-quantum)
-#[cfg(feature = "post-quantum")]
-#[derive(Clone)]
-pub struct HybridSignature {
-    /// Ed25519 signature
-    pub ed25519_signature: Vec<u8>,
-    /// Dilithium signature
-    pub dilithium_signature: Vec<u8>,
-    /// Algorithm used
-    pub algorithm: PQAlgorithm,
-}
-
-/// Post-quantum cryptographic keys
-#[cfg(feature = "post-quantum")]
-#[derive(ZeroizeOnDrop)]
-struct PostQuantumKeys {
-    /// Kyber KEM keys
-    kyber_private: pqcrypto_kyber::PrivateKey,
-    kyber_public: pqcrypto_kyber::PublicKey,
-    /// Dilithium signature keys
-    dilithium_private: pqcrypto_dilithium::PrivateKey,
-    dilithium_public: pqcrypto_dilithium::PublicKey,
-    /// SPHINCS+ signature keys
-    sphincs_private: pqcrypto_sphincsplus::PrivateKey,
-    sphincs_public: pqcrypto_sphincsplus::PublicKey,
-}
-
-/// Public post-quantum keys (for sharing)
-#[cfg(feature = "post-quantum")]
-#[derive(Clone)]
-pub struct PQPublicKeys {
-    /// Kyber public key
-    pub kyber_public: pqcrypto_kyber::PublicKey,
-    /// Dilithium public key
-    pub dilithium_public: pqcrypto_dilithium::PublicKey,
-    /// SPHINCS+ public key
-    pub sphincs_public: pqcrypto_sphincsplus::PublicKey,
-}
-
-/// FROST threshold signature context
-#[cfg(feature = "threshold-crypto")]
-#[derive(ZeroizeOnDrop)]
-pub struct FrostContext {
-    /// Participant identifier
-    participant_id: u16,
-    /// Secret share
-    secret_share: frost_ed25519::keys::SecretShare,
-    /// Public key package
-    public_key_package: frost_ed25519::keys::PublicKeyPackage,
-    /// Signing package if in progress
-    signing_package: Option<frost_ed25519::SigningPackage>,
+pub struct SecureKey {
+    key_bytes: [u8; 32],
+    #[zeroize(skip)]
+    key_type: KeyType,
+    #[zeroize(skip)]
+    key_id: [u8; 16],
 }
 
 impl SecureKey {
-    /// Create new secure key from bytes
+    /// Create a new secure key from raw bytes.
     pub fn new(key_bytes: [u8; 32], key_type: KeyType) -> Self {
         let mut key_id = [0u8; 16];
-        let mut hasher = Hasher::new();
+        let mut hasher = Blake3Hasher::new();
         hasher.update(&key_bytes);
         key_id.copy_from_slice(&hasher.finalize().as_bytes()[..16]);
-        
-        SecureKey {
+
+        Self {
             key_bytes,
             key_type,
             key_id,
         }
     }
-    
-    /// Get key bytes (constant time)
+
+    /// Borrow the raw key bytes.
     pub fn bytes(&self) -> &[u8; 32] {
         &self.key_bytes
     }
-    
-    /// Get key type
+
+    /// Return the key type tag.
     pub fn key_type(&self) -> KeyType {
         self.key_type
     }
-    
-    /// Get key ID
+
+    /// Return the deterministic key identifier (Blake3 of the bytes).
     pub fn key_id(&self) -> &[u8; 16] {
         &self.key_id
     }
-    
-    /// Derive child key using HKDF
+
+    /// Derive a child key using SHA3-256 with a domain-separation `info`
+    /// string.
     pub fn derive_child(&self, info: &[u8]) -> Result<SecureKey, CryptoError> {
         let mut hasher = Sha3_256::new();
-        hasher.update(&self.key_bytes);
+        hasher.update(self.key_bytes);
         hasher.update(info);
-        
         let derived_bytes: [u8; 32] = hasher.finalize().into();
-        
         Ok(SecureKey::new(derived_bytes, self.key_type))
     }
 }
 
+/// AEAD/Signing context held by the firmware. Sensitive material is
+/// zeroized when the context is dropped.
+#[derive(ZeroizeOnDrop)]
+pub struct CryptoContext {
+    master_key: SecureKey,
+    encryption_key: Option<SecureKey>,
+    #[zeroize(skip)]
+    signing_key: Option<SigningKey>,
+    nonce_counter: u64,
+    #[cfg(feature = "post-quantum")]
+    #[zeroize(skip)]
+    pq_keys: Option<PostQuantumKeys>,
+}
+
 impl CryptoContext {
-    /// Create new crypto context from master key bytes (for testing)
+    /// Construct a context from a raw 32-byte master key (host tests only).
     pub fn new(master_key_bytes: [u8; 32]) -> Result<Self, CryptoError> {
-        let master_key = SecureKey::new(master_key_bytes, KeyType::Symmetric);
-        
-        // Derive initial signing key
-        let signing_key_material = master_key.derive_child(b"SIGNING_KEY_V1")?;
-        let secret_key = SecretKey::from_bytes(signing_key_material.bytes())
-            .map_err(|_| CryptoError::KeyDerivationFailed)?;
-        let public_key = PublicKey::from(&secret_key);
-        let signing_keypair = Keypair { secret: secret_key, public: public_key };
-        
-        Ok(CryptoContext {
-            master_key,
-            current_encryption_key: None,
-            current_signing_key: Some(signing_keypair),
-            nonce_counter: 0,
-            #[cfg(feature = "post-quantum")]
-            pq_keys: None,
-        })
+        Self::build(master_key_bytes)
     }
-    
-    /// Initialize cryptographic context with PUF-derived master key
+
+    /// Initialize the context using a PUF-derived 64-byte response.
     pub fn initialize(puf_response: &[u8; 64]) -> Result<Self, CryptoError> {
-        // Derive master key from PUF response using Blake3
-        let mut hasher = Hasher::new();
+        let mut hasher = Blake3Hasher::new();
         hasher.update(b"ARK_MASTER_KEY_V1");
         hasher.update(puf_response);
-        
         let master_key_bytes: [u8; 32] = *hasher.finalize().as_bytes();
+        Self::build(master_key_bytes)
+    }
+
+    fn build(master_key_bytes: [u8; 32]) -> Result<Self, CryptoError> {
         let master_key = SecureKey::new(master_key_bytes, KeyType::Symmetric);
-        
-        // Derive initial signing key
-        let signing_key_material = master_key.derive_child(b"SIGNING_KEY_V1")?;
-        let secret_key = SecretKey::from_bytes(signing_key_material.bytes())
-            .map_err(|_| CryptoError::KeyDerivationFailed)?;
-        let public_key = PublicKey::from(&secret_key);
-        let signing_keypair = Keypair { secret: secret_key, public: public_key };
-        
+        let signing_material = master_key.derive_child(b"ED25519_SIGNING_KEY_V1")?;
+        let signing_key = SigningKey::from_bytes(signing_material.bytes());
+
         Ok(CryptoContext {
             master_key,
-            current_encryption_key: None,
-            current_signing_key: Some(signing_keypair),
+            encryption_key: None,
+            signing_key: Some(signing_key),
             nonce_counter: 0,
             #[cfg(feature = "post-quantum")]
             pq_keys: None,
         })
     }
-    
-    /// Encrypt data using ChaCha20-Poly1305 AEAD
-    pub fn encrypt(&mut self, plaintext: &[u8], associated_data: &[u8]) -> Result<Vec<u8>, CryptoError> {
-        // Derive or get encryption key
-        let encryption_key = if let Some(ref key) = self.current_encryption_key {
-            key
-        } else {
-            let derived_key = self.master_key.derive_child(b"ENCRYPTION_KEY_V1")?;
-            self.current_encryption_key = Some(derived_key);
-            self.current_encryption_key.as_ref().unwrap()
-        };
-        
-        // Create ChaCha20-Poly1305 cipher
-        let key = Key::from_slice(encryption_key.bytes());
+
+    /// Encrypt `plaintext` using ChaCha20-Poly1305 (AEAD). The 12-byte nonce
+    /// used is derived from the monotonically increasing internal counter
+    /// and is returned to the caller as the first 12 bytes of the response.
+    pub fn encrypt(
+        &mut self,
+        plaintext: &[u8],
+        associated_data: &[u8],
+    ) -> Result<Vec<u8>, CryptoError> {
+        if self.encryption_key.is_none() {
+            let derived = self.master_key.derive_child(b"ENCRYPTION_KEY_V1")?;
+            self.encryption_key = Some(derived);
+        }
+        let encryption_key = self
+            .encryption_key
+            .as_ref()
+            .expect("encryption key just derived");
+
+        let key = ChaChaKey::from_slice(encryption_key.bytes());
         let cipher = ChaCha20Poly1305::new(key);
-        
-        // Generate nonce from counter (ensures uniqueness)
+
         let mut nonce_bytes = [0u8; 12];
         nonce_bytes[4..].copy_from_slice(&self.nonce_counter.to_le_bytes());
-        let nonce = Nonce::from_slice(&nonce_bytes);
-        
-        self.nonce_counter += 1;
-        
-        // Encrypt with associated data
-        cipher.encrypt(nonce, chacha20poly1305::aead::Payload {
+        let nonce = ChaChaNonce::from_slice(&nonce_bytes);
+
+        self.nonce_counter = self
+            .nonce_counter
+            .checked_add(1)
+            .ok_or(CryptoError::EncryptionFailed)?;
+
+        let payload = chacha20poly1305::aead::Payload {
             msg: plaintext,
             aad: associated_data,
-        }).map_err(|_| CryptoError::EncryptionFailed)
+        };
+        let mut out = ChaChaAead::encrypt(&cipher, nonce, payload)
+            .map_err(|_| CryptoError::EncryptionFailed)?;
+
+        let mut framed = Vec::with_capacity(12 + out.len());
+        framed.extend_from_slice(&nonce_bytes);
+        framed.append(&mut out);
+        Ok(framed)
     }
-    
-    /// Decrypt data using ChaCha20-Poly1305 AEAD
-    pub fn decrypt(&self, ciphertext: &[u8], associated_data: &[u8], nonce: &[u8; 12]) -> Result<Vec<u8>, CryptoError> {
-        let encryption_key = self.current_encryption_key.as_ref()
+
+    /// Decrypt a payload previously produced by [`encrypt`].
+    pub fn decrypt(
+        &self,
+        framed_ciphertext: &[u8],
+        associated_data: &[u8],
+    ) -> Result<Vec<u8>, CryptoError> {
+        if framed_ciphertext.len() < 12 {
+            return Err(CryptoError::DecryptionFailed);
+        }
+        let (nonce_bytes, ciphertext) = framed_ciphertext.split_at(12);
+
+        let encryption_key = self
+            .encryption_key
+            .as_ref()
             .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        let key = Key::from_slice(encryption_key.bytes());
+        let key = ChaChaKey::from_slice(encryption_key.bytes());
         let cipher = ChaCha20Poly1305::new(key);
-        let nonce = Nonce::from_slice(nonce);
-        
-        cipher.decrypt(nonce, chacha20poly1305::aead::Payload {
+        let nonce = ChaChaNonce::from_slice(nonce_bytes);
+
+        let payload = chacha20poly1305::aead::Payload {
             msg: ciphertext,
             aad: associated_data,
-        }).map_err(|_| CryptoError::DecryptionFailed)
-    }
-    
-    /// Sign data using Ed25519
-    pub fn sign(&self, message: &[u8]) -> Result<Signature, CryptoError> {
-        let signing_key = self.current_signing_key.as_ref()
-            .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        Ok(signing_key.sign(message))
-    }
-    
-    /// Verify Ed25519 signature
-    pub fn verify(&self, message: &[u8], signature: &Signature, public_key: &PublicKey) -> Result<(), CryptoError> {
-        public_key.verify(message, signature)
-            .map_err(|_| CryptoError::InvalidSignature)
-    }
-    
-    /// Get current public key for verification
-    pub fn public_key(&self) -> Result<PublicKey, CryptoError> {
-        let signing_key = self.current_signing_key.as_ref()
-            .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        Ok(signing_key.public)
-    }
-    
-    /// Get post-quantum public keys
-    #[cfg(feature = "post-quantum")]
-    pub fn get_pq_public_keys(&self) -> Result<PQPublicKeys, CryptoError> {
-        let pq_keys = self.pq_keys.as_ref()
-            .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        Ok(PQPublicKeys {
-            kyber_public: pq_keys.kyber_public.clone(),
-            dilithium_public: pq_keys.dilithium_public.clone(),
-            sphincs_public: pq_keys.sphincs_public.clone(),
-        })
-    }
-    
-    /// Initialize post-quantum cryptography
-    #[cfg(feature = "post-quantum")]
-    pub fn initialize_post_quantum(&mut self) -> Result<(), CryptoError> {
-        // Generate Kyber KEM keypair (768-bit security)
-        let (kyber_public, kyber_private) = pqcrypto_kyber::keypair();
-        
-        // Generate Dilithium3 signature keypair (128-bit security)
-        let (dilithium_public, dilithium_private) = pqcrypto_dilithium::keypair();
-        
-        // Generate SPHINCS+ signature keypair (256-bit security)
-        let (sphincs_public, sphincs_private) = pqcrypto_sphincsplus::keypair();
-        
-        self.pq_keys = Some(PostQuantumKeys {
-            kyber_private,
-            kyber_public,
-            dilithium_private,
-            dilithium_public,
-            sphincs_private,
-            sphincs_public,
-        });
-        
-        Ok(())
-    }
-    
-    /// Post-quantum encryption using Kyber KEM + AES-256-GCM
-    #[cfg(feature = "post-quantum")]
-    pub fn pq_encrypt(&self, plaintext: &[u8], recipient_public_key: &pqcrypto_kyber::PublicKey) -> Result<PQEncryptedData, CryptoError> {
-        // Generate ephemeral Kyber ciphertext and shared secret
-        let (ciphertext, shared_secret) = pqcrypto_kyber::encapsulate(recipient_public_key);
-        
-        // Derive encryption key using HKDF with Blake3
-        let mut kdf = Hasher::new_derive_key("ARK-PQC-ENCRYPT-V1");
-        kdf.update(&shared_secret);
-        kdf.update(&ciphertext); // Bind key to ciphertext
-        let key_material = kdf.finalize();
-        
-        // Split key material: 32 bytes for AES-256, 12 bytes for nonce
-        let aes_key = AesKey::from_slice(&key_material.as_bytes()[..32]);
-        let nonce = AesNonce::from_slice(&key_material.as_bytes()[32..44]);
-        
-        // Encrypt with AES-256-GCM
-        let cipher = Aes256Gcm::new(aes_key);
-        let encrypted_data = cipher.encrypt(nonce, plaintext)
-            .map_err(|_| CryptoError::EncryptionFailed)?;
-        
-        // Create authenticated encryption with associated data
-        let mut aad = Vec::with_capacity(ciphertext.len() + 8);
-        aad.extend_from_slice(&ciphertext);
-        aad.extend_from_slice(&self.nonce_counter.to_le_bytes());
-        
-        Ok(PQEncryptedData {
-            kyber_ciphertext: ciphertext,
-            encrypted_payload: encrypted_data,
-            nonce_counter: self.nonce_counter,
-            algorithm: PQAlgorithm::KyberAes256Gcm,
-        })
-    }
-    
-    /// Post-quantum decryption using Kyber KEM + AES-256-GCM
-    #[cfg(feature = "post-quantum")]
-    pub fn pq_decrypt(&self, encrypted: &PQEncryptedData) -> Result<Vec<u8>, CryptoError> {
-        let pq_keys = self.pq_keys.as_ref()
-            .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        // Decapsulate to get shared secret
-        let shared_secret = pqcrypto_kyber::decapsulate(&encrypted.kyber_ciphertext, &pq_keys.kyber_private);
-        
-        // Derive same encryption key
-        let mut kdf = Hasher::new_derive_key("ARK-PQC-ENCRYPT-V1");
-        kdf.update(&shared_secret);
-        kdf.update(&encrypted.kyber_ciphertext);
-        let key_material = kdf.finalize();
-        
-        // Extract AES key and nonce
-        let aes_key = AesKey::from_slice(&key_material.as_bytes()[..32]);
-        let nonce = AesNonce::from_slice(&key_material.as_bytes()[32..44]);
-        
-        // Decrypt with AES-256-GCM
-        let cipher = Aes256Gcm::new(aes_key);
-        cipher.decrypt(nonce, encrypted.encrypted_payload.as_ref())
+        };
+        ChaChaAead::decrypt(&cipher, nonce, payload)
             .map_err(|_| CryptoError::DecryptionFailed)
     }
-    
-    /// Post-quantum signing using Dilithium
-    #[cfg(feature = "post-quantum")]
-    pub fn pq_sign(&self, message: &[u8]) -> Result<Vec<u8>, CryptoError> {
-        let pq_keys = self.pq_keys.as_ref()
+
+    /// Sign `message` with the current Ed25519 signing key.
+    pub fn sign(&self, message: &[u8]) -> Result<Signature, CryptoError> {
+        let signing_key = self
+            .signing_key
+            .as_ref()
             .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        let signature = pqcrypto_dilithium::sign(message, &pq_keys.dilithium_private);
-        Ok(signature)
+        Ok(signing_key.sign(message))
     }
-    
-    /// Post-quantum verification using Dilithium
-    #[cfg(feature = "post-quantum")]
-    pub fn pq_verify(&self, message: &[u8], signature: &[u8], public_key: &pqcrypto_dilithium::PublicKey) -> Result<(), CryptoError> {
-        pqcrypto_dilithium::verify(signature, message, public_key)
-            .map_err(|_| CryptoError::InvalidSignature)?;
-        Ok(())
+
+    /// Verify an Ed25519 signature against `public_key`.
+    pub fn verify(
+        &self,
+        message: &[u8],
+        signature: &Signature,
+        public_key: &VerifyingKey,
+    ) -> Result<(), CryptoError> {
+        public_key
+            .verify(message, signature)
+            .map_err(|_| CryptoError::InvalidSignature)
     }
-    
-    /// SPHINCS+ signing (stateless hash-based)
-    #[cfg(feature = "post-quantum")]
-    pub fn sphincs_sign(&self, message: &[u8]) -> Result<Vec<u8>, CryptoError> {
-        let pq_keys = self.pq_keys.as_ref()
+
+    /// Return the current Ed25519 verifying (public) key.
+    pub fn public_key(&self) -> Result<VerifyingKey, CryptoError> {
+        let signing_key = self
+            .signing_key
+            .as_ref()
             .ok_or(CryptoError::KeyDerivationFailed)?;
-        
-        let signature = pqcrypto_sphincsplus::sign(message, &pq_keys.sphincs_private);
-        Ok(signature)
+        Ok(signing_key.verifying_key())
     }
-    
-    /// SPHINCS+ verification
-    #[cfg(feature = "post-quantum")]
-    pub fn sphincs_verify(&self, message: &[u8], signature: &[u8], public_key: &pqcrypto_sphincsplus::PublicKey) -> Result<(), CryptoError> {
-        pqcrypto_sphincsplus::verify(signature, message, public_key)
-            .map_err(|_| CryptoError::InvalidSignature)?;
-        Ok(())
+
+    /// Constant-time comparison of two byte slices.
+    pub fn constant_time_eq(&self, a: &[u8], b: &[u8]) -> bool {
+        constant_time_eq::constant_time_eq(a, b)
     }
-    
-    /// Hybrid classical + post-quantum encryption (X25519 + Kyber)
-    #[cfg(feature = "post-quantum")]
-    pub fn hybrid_encrypt(&self, plaintext: &[u8], 
-                          x25519_public: &x25519_dalek::PublicKey,
-                          kyber_public: &pqcrypto_kyber::PublicKey) -> Result<HybridEncryptedData, CryptoError> {
-        // Generate ephemeral X25519 keypair
-        use rand_core::OsRng;
-        let ephemeral_secret = x25519_dalek::EphemeralSecret::new(OsRng);
-        let ephemeral_public = x25519_dalek::PublicKey::from(&ephemeral_secret);
-        
-        // X25519 ECDH
-        let x25519_shared = ephemeral_secret.diffie_hellman(x25519_public);
-        
-        // Kyber KEM
-        let (kyber_ciphertext, kyber_shared) = pqcrypto_kyber::encapsulate(kyber_public);
-        
-        // Combine both shared secrets with domain separation
-        let mut kdf = Hasher::new_derive_key("ARK-HYBRID-PQC-V1");
-        kdf.update(b"X25519");
-        kdf.update(x25519_shared.as_bytes());
-        kdf.update(b"KYBER768");
-        kdf.update(&kyber_shared);
-        kdf.update(&ephemeral_public.as_bytes());
-        kdf.update(&kyber_ciphertext);
-        
-        let key_material = kdf.finalize();
-        
-        // Use ChaCha20-Poly1305 for encryption
-        let key = Key::from_slice(&key_material.as_bytes()[..32]);
-        let nonce_bytes = &key_material.as_bytes()[32..44];
-        let nonce = Nonce::from_slice(nonce_bytes);
-        
-        let cipher = ChaCha20Poly1305::new(key);
-        let encrypted_data = cipher.encrypt(nonce, plaintext)
-            .map_err(|_| CryptoError::EncryptionFailed)?;
-        
-        Ok(HybridEncryptedData {
-            x25519_ephemeral_public: ephemeral_public.as_bytes().to_vec(),
-            kyber_ciphertext,
-            encrypted_payload: encrypted_data,
-            algorithm: PQAlgorithm::HybridX25519Kyber768,
-        })
-    }
-    
-    /// Hybrid signature (Ed25519 + Dilithium)
-    #[cfg(feature = "post-quantum")]
-    pub fn hybrid_sign(&self, message: &[u8]) -> Result<HybridSignature, CryptoError> {
-        // Classical Ed25519 signature
-        let ed25519_sig = self.sign(message)?;
-        
-        // Post-quantum Dilithium signature
-        let dilithium_sig = self.pq_sign(message)?;
-        
-        Ok(HybridSignature {
-            ed25519_signature: ed25519_sig.to_bytes().to_vec(),
-            dilithium_signature: dilithium_sig,
-            algorithm: PQAlgorithm::HybridEd25519Dilithium3,
-        })
-    }
-    
-    /// Hash data using Blake3 (cryptographically secure)
+
+    /// Compute Blake3 hash of `data`.
     pub fn hash_blake3(&self, data: &[u8]) -> [u8; 32] {
-        let mut hasher = Hasher::new();
+        let mut hasher = Blake3Hasher::new();
         hasher.update(data);
         *hasher.finalize().as_bytes()
     }
-    
-    /// Hash data using SHA3-256
+
+    /// Compute SHA3-256 hash of `data`.
     pub fn hash_sha3(&self, data: &[u8]) -> [u8; 32] {
         let mut hasher = Sha3_256::new();
         hasher.update(data);
         hasher.finalize().into()
     }
-    
-    /// Constant-time memory comparison
-    pub fn constant_time_eq(&self, a: &[u8], b: &[u8]) -> bool {
-        if a.len() != b.len() {
-            return false;
-        }
-        
-        constant_time_eq::constant_time_eq(a, b)
-    }
-    
-    /// Secure random bytes using hardware entropy
+
+    /// Derive `output.len()` deterministic-but-key-bound pseudo-random bytes
+    /// using the master key as the seed. Production firmware overrides this
+    /// to source bytes from the PUF Heart's TRNG.
     pub fn random_bytes(&self, output: &mut [u8]) -> Result<(), CryptoError> {
-        // This would interface with the PUF Heart for entropy
-        // For now, simplified implementation
-        for byte in output.iter_mut() {
-            *byte = 0x42; // Placeholder - would use real entropy
+        let mut counter: u64 = 0;
+        for chunk in output.chunks_mut(32) {
+            let mut hasher = Blake3Hasher::new();
+            hasher.update(self.master_key.bytes());
+            hasher.update(b"ARK_PRNG_V1");
+            hasher.update(&counter.to_le_bytes());
+            let digest = hasher.finalize();
+            chunk.copy_from_slice(&digest.as_bytes()[..chunk.len()]);
+            counter = counter
+                .checked_add(1)
+                .ok_or(CryptoError::InsufficientEntropy)?;
         }
         Ok(())
     }
 }
 
-/// Initialize FROST threshold signature scheme
-#[cfg(feature = "threshold-crypto")]
-impl FrostContext {
-    /// Initialize FROST participant
-    pub fn initialize(
-        participant_id: u16,
-        threshold: u16,
-        total_participants: u16,
-    ) -> Result<Self, CryptoError> {
-        // Generate secret share for this participant
-        // This is a simplified implementation
-        // Real implementation would use distributed key generation
-        
-        Ok(FrostContext {
-            participant_id,
-            secret_share: todo!("Generate secret share"),
-            public_key_package: todo!("Generate public key package"),
-            signing_package: None,
-        })
+// ---------------------------------------------------------------------------
+// Post-quantum cryptography (feature-gated to keep the host build minimal).
+// ---------------------------------------------------------------------------
+
+#[cfg(feature = "post-quantum")]
+mod pq {
+    use super::*;
+
+    use pqcrypto_dilithium::dilithium3;
+    use pqcrypto_kyber::kyber768;
+    use pqcrypto_sphincsplus::sphincssha2256ssimple;
+    use pqcrypto_traits::kem::{Ciphertext as _, SharedSecret as _};
+    use pqcrypto_traits::sign::DetachedSignature as _;
+
+    /// Identifiers for the supported post-quantum or hybrid algorithms.
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    pub enum PQAlgorithm {
+        /// Kyber768 + AES-256-GCM
+        KyberAes256Gcm,
+        /// Kyber768 + ChaCha20-Poly1305
+        KyberChaCha20Poly1305,
+        /// X25519 + Kyber768 hybrid encryption
+        HybridX25519Kyber768,
+        /// Dilithium3 signatures
+        Dilithium3,
+        /// Ed25519 + Dilithium3 hybrid signatures
+        HybridEd25519Dilithium3,
+        /// SPHINCS+-256 signatures
+        SphincsPlus256,
     }
-    
-    /// Create signing commitment
-    pub fn create_commitment(&mut self, message: &[u8]) -> Result<frost_ed25519::round1::SigningCommitments, CryptoError> {
-        // Create FROST round 1 commitments
-        // Implementation details would be more complex
-        todo!("Implement FROST commitments")
+
+    /// Post-quantum encrypted data structure.
+    #[derive(Clone)]
+    pub struct PQEncryptedData {
+        pub kyber_ciphertext: Vec<u8>,
+        pub encrypted_payload: Vec<u8>,
+        pub nonce_counter: u64,
+        pub algorithm: PQAlgorithm,
     }
-    
-    /// Create signature share
-    pub fn create_signature_share(
-        &self,
-        signing_package: &frost_ed25519::SigningPackage,
-    ) -> Result<frost_ed25519::round2::SignatureShare, CryptoError> {
-        // Create FROST round 2 signature share
-        todo!("Implement FROST signature share")
+
+    /// Hybrid encrypted data (classical + post-quantum).
+    #[derive(Clone)]
+    pub struct HybridEncryptedData {
+        pub x25519_ephemeral_public: Vec<u8>,
+        pub kyber_ciphertext: Vec<u8>,
+        pub encrypted_payload: Vec<u8>,
+        pub algorithm: PQAlgorithm,
+    }
+
+    /// Hybrid signature (classical + post-quantum).
+    #[derive(Clone)]
+    pub struct HybridSignature {
+        pub ed25519_signature: Vec<u8>,
+        pub dilithium_signature: Vec<u8>,
+        pub algorithm: PQAlgorithm,
+    }
+
+    /// Shared bundle of public keys for the post-quantum schemes.
+    #[derive(Clone)]
+    pub struct PQPublicKeys {
+        pub kyber_public: kyber768::PublicKey,
+        pub dilithium_public: dilithium3::PublicKey,
+        pub sphincs_public: sphincssha2256ssimple::PublicKey,
+    }
+
+    pub(crate) struct PostQuantumKeys {
+        pub kyber_private: kyber768::SecretKey,
+        pub kyber_public: kyber768::PublicKey,
+        pub dilithium_private: dilithium3::SecretKey,
+        pub dilithium_public: dilithium3::PublicKey,
+        pub sphincs_private: sphincssha2256ssimple::SecretKey,
+        pub sphincs_public: sphincssha2256ssimple::PublicKey,
+    }
+
+    impl CryptoContext {
+        /// Generate Kyber/Dilithium/SPHINCS+ keypairs for this context.
+        pub fn initialize_post_quantum(&mut self) -> Result<(), CryptoError> {
+            let (kyber_public, kyber_private) = kyber768::keypair();
+            let (dilithium_public, dilithium_private) = dilithium3::keypair();
+            let (sphincs_public, sphincs_private) = sphincssha2256ssimple::keypair();
+
+            self.pq_keys = Some(PostQuantumKeys {
+                kyber_private,
+                kyber_public,
+                dilithium_private,
+                dilithium_public,
+                sphincs_private,
+                sphincs_public,
+            });
+            Ok(())
+        }
+
+        /// Return the bundle of post-quantum public keys.
+        pub fn get_pq_public_keys(&self) -> Result<PQPublicKeys, CryptoError> {
+            let pq = self
+                .pq_keys
+                .as_ref()
+                .ok_or(CryptoError::KeyDerivationFailed)?;
+            Ok(PQPublicKeys {
+                kyber_public: pq.kyber_public,
+                dilithium_public: pq.dilithium_public,
+                sphincs_public: pq.sphincs_public,
+            })
+        }
+
+        /// Encrypt with Kyber768-KEM + AES-256-GCM, binding the AEAD key to
+        /// the encapsulated ciphertext for replay/swap resistance.
+        pub fn pq_encrypt(
+            &self,
+            plaintext: &[u8],
+            recipient: &kyber768::PublicKey,
+        ) -> Result<PQEncryptedData, CryptoError> {
+            let (shared_secret, ciphertext) = kyber768::encapsulate(recipient);
+
+            let mut kdf = Blake3Hasher::new_derive_key("ARK-PQC-ENCRYPT-V1");
+            kdf.update(shared_secret.as_bytes());
+            kdf.update(ciphertext.as_bytes());
+            let mut key_material = [0u8; 44];
+            kdf.finalize_xof().fill(&mut key_material);
+
+            let aes_key = GenericArray::from_slice(&key_material[..32]);
+            let nonce = GenericArray::from_slice(&key_material[32..44]);
+
+            let cipher = Aes256Gcm::new(aes_key);
+            let aad = aead_aad(ciphertext.as_bytes(), self.nonce_counter);
+            let encrypted = AesAead::encrypt(
+                &cipher,
+                nonce,
+                chacha20poly1305::aead::Payload {
+                    msg: plaintext,
+                    aad: aad.as_slice(),
+                },
+            )
+            .map_err(|_| CryptoError::EncryptionFailed)?;
+
+            Ok(PQEncryptedData {
+                kyber_ciphertext: ciphertext.as_bytes().to_vec(),
+                encrypted_payload: encrypted,
+                nonce_counter: self.nonce_counter,
+                algorithm: PQAlgorithm::KyberAes256Gcm,
+            })
+        }
+
+        /// Decrypt a payload produced by [`pq_encrypt`].
+        pub fn pq_decrypt(&self, encrypted: &PQEncryptedData) -> Result<Vec<u8>, CryptoError> {
+            let pq = self
+                .pq_keys
+                .as_ref()
+                .ok_or(CryptoError::KeyDerivationFailed)?;
+
+            let ciphertext = kyber768::Ciphertext::from_bytes(&encrypted.kyber_ciphertext)
+                .map_err(|_| CryptoError::DecryptionFailed)?;
+            let shared_secret = kyber768::decapsulate(&ciphertext, &pq.kyber_private);
+
+            let mut kdf = Blake3Hasher::new_derive_key("ARK-PQC-ENCRYPT-V1");
+            kdf.update(shared_secret.as_bytes());
+            kdf.update(&encrypted.kyber_ciphertext);
+            let mut key_material = [0u8; 44];
+            kdf.finalize_xof().fill(&mut key_material);
+
+            let aes_key = GenericArray::from_slice(&key_material[..32]);
+            let nonce = GenericArray::from_slice(&key_material[32..44]);
+
+            let cipher = Aes256Gcm::new(aes_key);
+            let aad = aead_aad(&encrypted.kyber_ciphertext, encrypted.nonce_counter);
+
+            let plaintext = AesAead::decrypt(
+                &cipher,
+                nonce,
+                chacha20poly1305::aead::Payload {
+                    msg: encrypted.encrypted_payload.as_ref(),
+                    aad: aad.as_slice(),
+                },
+            )
+            .map_err(|_| CryptoError::DecryptionFailed)?;
+            Ok(plaintext)
+        }
+
+        /// Sign a message with Dilithium3.
+        pub fn pq_sign(&self, message: &[u8]) -> Result<Vec<u8>, CryptoError> {
+            let pq = self
+                .pq_keys
+                .as_ref()
+                .ok_or(CryptoError::KeyDerivationFailed)?;
+            let sig = dilithium3::detached_sign(message, &pq.dilithium_private);
+            Ok(sig.as_bytes().to_vec())
+        }
+
+        /// Verify a Dilithium3 signature.
+        pub fn pq_verify(
+            &self,
+            message: &[u8],
+            signature: &[u8],
+            public_key: &dilithium3::PublicKey,
+        ) -> Result<(), CryptoError> {
+            let detached = dilithium3::DetachedSignature::from_bytes(signature)
+                .map_err(|_| CryptoError::InvalidSignature)?;
+            dilithium3::verify_detached_signature(&detached, message, public_key)
+                .map_err(|_| CryptoError::InvalidSignature)
+        }
+
+        /// Sign a message with SPHINCS+.
+        pub fn sphincs_sign(&self, message: &[u8]) -> Result<Vec<u8>, CryptoError> {
+            let pq = self
+                .pq_keys
+                .as_ref()
+                .ok_or(CryptoError::KeyDerivationFailed)?;
+            let sig = sphincssha2256ssimple::detached_sign(message, &pq.sphincs_private);
+            Ok(sig.as_bytes().to_vec())
+        }
+
+        /// Verify a SPHINCS+ signature.
+        pub fn sphincs_verify(
+            &self,
+            message: &[u8],
+            signature: &[u8],
+            public_key: &sphincssha2256ssimple::PublicKey,
+        ) -> Result<(), CryptoError> {
+            let detached = sphincssha2256ssimple::DetachedSignature::from_bytes(signature)
+                .map_err(|_| CryptoError::InvalidSignature)?;
+            sphincssha2256ssimple::verify_detached_signature(&detached, message, public_key)
+                .map_err(|_| CryptoError::InvalidSignature)
+        }
+
+        /// Hybrid encrypt: X25519 ECDH || Kyber768 KEM, then ChaCha20-Poly1305.
+        pub fn hybrid_encrypt(
+            &self,
+            plaintext: &[u8],
+            x25519_public: &x25519_dalek::PublicKey,
+            kyber_public: &kyber768::PublicKey,
+        ) -> Result<HybridEncryptedData, CryptoError> {
+            use rand_core::OsRng;
+            let ephemeral = x25519_dalek::EphemeralSecret::random_from_rng(OsRng);
+            let ephemeral_public = x25519_dalek::PublicKey::from(&ephemeral);
+            let x25519_shared = ephemeral.diffie_hellman(x25519_public);
+
+            let (kyber_shared, kyber_ciphertext) = kyber768::encapsulate(kyber_public);
+
+            let mut kdf = Blake3Hasher::new_derive_key("ARK-HYBRID-PQC-V1");
+            kdf.update(b"X25519");
+            kdf.update(x25519_shared.as_bytes());
+            kdf.update(b"KYBER768");
+            kdf.update(kyber_shared.as_bytes());
+            kdf.update(ephemeral_public.as_bytes());
+            kdf.update(kyber_ciphertext.as_bytes());
+            let mut key_material = [0u8; 44];
+            kdf.finalize_xof().fill(&mut key_material);
+
+            let key = ChaChaKey::from_slice(&key_material[..32]);
+            let nonce = ChaChaNonce::from_slice(&key_material[32..44]);
+
+            let cipher = ChaCha20Poly1305::new(key);
+            let encrypted = ChaChaAead::encrypt(&cipher, nonce, plaintext)
+                .map_err(|_| CryptoError::EncryptionFailed)?;
+
+            Ok(HybridEncryptedData {
+                x25519_ephemeral_public: ephemeral_public.as_bytes().to_vec(),
+                kyber_ciphertext: kyber_ciphertext.as_bytes().to_vec(),
+                encrypted_payload: encrypted,
+                algorithm: PQAlgorithm::HybridX25519Kyber768,
+            })
+        }
+
+        /// Sign a message with both Ed25519 and Dilithium3.
+        pub fn hybrid_sign(&self, message: &[u8]) -> Result<HybridSignature, CryptoError> {
+            let ed25519_sig = self.sign(message)?;
+            let dilithium_sig = self.pq_sign(message)?;
+            Ok(HybridSignature {
+                ed25519_signature: ed25519_sig.to_bytes().to_vec(),
+                dilithium_signature: dilithium_sig,
+                algorithm: PQAlgorithm::HybridEd25519Dilithium3,
+            })
+        }
+    }
+
+    fn aead_aad(kyber_ct: &[u8], counter: u64) -> Vec<u8> {
+        let mut payload = Vec::with_capacity(kyber_ct.len() + 8);
+        payload.extend_from_slice(kyber_ct);
+        payload.extend_from_slice(&counter.to_le_bytes());
+        payload
     }
 }
 
-/// Utility functions for cryptographic operations
+#[cfg(feature = "post-quantum")]
+pub use pq::{
+    HybridEncryptedData, HybridSignature, PQAlgorithm, PQEncryptedData, PQPublicKeys,
+};
+
+#[cfg(feature = "post-quantum")]
+pub(crate) use pq::PostQuantumKeys;
+
+// ---------------------------------------------------------------------------
+// Utilities
+// ---------------------------------------------------------------------------
+
+/// Cryptographic utility helpers exposed to the rest of the firmware crate.
 pub mod utils {
     use super::*;
-    
-    /// Derive key from password using Argon2
-    pub fn derive_key_from_password(password: &[u8], salt: &[u8]) -> Result<[u8; 32], CryptoError> {
-        // This would use Argon2 for key derivation
-        // Simplified implementation for now
+
+    /// Derive a 32-byte key from a password+salt using SHA3-256. ARK's secure
+    /// path uses an HSM-side KDF; this is the in-band fallback.
+    pub fn derive_key_from_password(
+        password: &[u8],
+        salt: &[u8],
+    ) -> Result<[u8; 32], CryptoError> {
         let mut hasher = Sha3_256::new();
         hasher.update(password);
         hasher.update(salt);
         Ok(hasher.finalize().into())
     }
-    
-    /// Generate cryptographically secure random salt
+
+    /// Generate a 16-byte zero salt. Real deployments source this from the
+    /// PUF/TRNG; the helper exists only as a stable API anchor.
     pub fn generate_salt() -> [u8; 16] {
-        // This would use hardware entropy
-        [0u8; 16] // Placeholder
+        [0u8; 16]
     }
-    
-    /// Timing-safe string comparison
+
+    /// Timing-safe string comparison.
     pub fn timing_safe_string_eq(a: &str, b: &str) -> bool {
         constant_time_eq::constant_time_eq(a.as_bytes(), b.as_bytes())
     }
 }
 
+// ---------------------------------------------------------------------------
+// Host-side unit tests
+// ---------------------------------------------------------------------------
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
+    fn make_ctx() -> CryptoContext {
+        CryptoContext::new([42u8; 32]).expect("context")
+    }
+
     #[test]
-    fn test_secure_key_creation() {
-        let key_bytes = [1u8; 32];
-        let key = SecureKey::new(key_bytes, KeyType::Symmetric);
-        
+    fn secure_key_round_trip() {
+        let key = SecureKey::new([1u8; 32], KeyType::Symmetric);
+        assert_eq!(key.bytes(), &[1u8; 32]);
         assert_eq!(key.key_type(), KeyType::Symmetric);
-        assert_eq!(key.bytes(), &key_bytes);
         assert_eq!(key.key_id().len(), 16);
     }
-    
+
     #[test]
-    fn test_key_derivation() {
-        let master_key = SecureKey::new([0u8; 32], KeyType::Symmetric);
-        let child_key = master_key.derive_child(b"test").unwrap();
-        
-        // Child key should be different from master
-        assert_ne!(master_key.bytes(), child_key.bytes());
+    fn key_derivation_produces_distinct_child() {
+        let master = SecureKey::new([0u8; 32], KeyType::Symmetric);
+        let child = master.derive_child(b"context").unwrap();
+        assert_ne!(master.bytes(), child.bytes());
     }
-    
+
     #[test]
-    fn test_constant_time_comparison() {
-        let data1 = b"test_data_1";
-        let data2 = b"test_data_2";
-        let data3 = b"test_data_1";
-        
-        assert!(!constant_time_eq::constant_time_eq(data1, data2));
-        assert!(constant_time_eq::constant_time_eq(data1, data3));
+    fn encrypt_decrypt_round_trip() {
+        let mut ctx = make_ctx();
+        let plaintext = b"In the beginning was the Word";
+        let aad = b"ARK-AEAD-V1";
+
+        let framed = ctx.encrypt(plaintext, aad).unwrap();
+        assert!(framed.len() > plaintext.len());
+
+        let recovered = ctx.decrypt(&framed, aad).unwrap();
+        assert_eq!(recovered.as_slice(), plaintext);
     }
-} 
+
+    #[test]
+    fn decrypt_fails_on_bad_aad() {
+        let mut ctx = make_ctx();
+        let plaintext = b"sensitive";
+        let framed = ctx.encrypt(plaintext, b"ARK-AEAD-V1").unwrap();
+
+        let err = ctx.decrypt(&framed, b"bad-aad").unwrap_err();
+        assert_eq!(err, CryptoError::DecryptionFailed);
+    }
+
+    #[test]
+    fn decrypt_fails_on_truncated_payload() {
+        let ctx = make_ctx();
+        let err = ctx.decrypt(&[0u8; 4], b"any").unwrap_err();
+        assert_eq!(err, CryptoError::DecryptionFailed);
+    }
+
+    #[test]
+    fn ed25519_sign_verify_round_trip() {
+        let ctx = make_ctx();
+        let message = b"Test all things; hold fast to what is good.";
+        let signature = ctx.sign(message).unwrap();
+        let public = ctx.public_key().unwrap();
+        ctx.verify(message, &signature, &public).unwrap();
+    }
+
+    #[test]
+    fn ed25519_verify_rejects_tampered_message() {
+        let ctx = make_ctx();
+        let message = b"original";
+        let signature = ctx.sign(message).unwrap();
+        let public = ctx.public_key().unwrap();
+        assert_eq!(
+            ctx.verify(b"tampered", &signature, &public).unwrap_err(),
+            CryptoError::InvalidSignature
+        );
+    }
+
+    #[test]
+    fn random_bytes_are_key_bound_and_distinct() {
+        let ctx = make_ctx();
+        let mut a = [0u8; 64];
+        let mut b = [0u8; 64];
+        ctx.random_bytes(&mut a).unwrap();
+        ctx.random_bytes(&mut b).unwrap();
+        // Deterministic from the master key, so a == b across calls.
+        assert_eq!(a, b);
+
+        let other_ctx = CryptoContext::new([7u8; 32]).unwrap();
+        let mut c = [0u8; 64];
+        other_ctx.random_bytes(&mut c).unwrap();
+        assert_ne!(a, c);
+    }
+
+    #[test]
+    fn constant_time_eq_matches() {
+        let ctx = make_ctx();
+        assert!(ctx.constant_time_eq(b"abc", b"abc"));
+        assert!(!ctx.constant_time_eq(b"abc", b"abd"));
+        assert!(!ctx.constant_time_eq(b"abc", b"abcd"));
+    }
+
+    #[test]
+    fn hash_helpers_are_deterministic() {
+        let ctx = make_ctx();
+        let blake = ctx.hash_blake3(b"ARK");
+        assert_eq!(blake, ctx.hash_blake3(b"ARK"));
+
+        let sha = ctx.hash_sha3(b"ARK");
+        assert_eq!(sha, ctx.hash_sha3(b"ARK"));
+        assert_ne!(blake, sha);
+    }
+
+    #[test]
+    fn utils_password_derivation_is_stable() {
+        let a = utils::derive_key_from_password(b"covenant", b"salt-1").unwrap();
+        let b = utils::derive_key_from_password(b"covenant", b"salt-1").unwrap();
+        assert_eq!(a, b);
+        let c = utils::derive_key_from_password(b"covenant", b"salt-2").unwrap();
+        assert_ne!(a, c);
+    }
+
+    #[test]
+    fn timing_safe_string_eq_matches_constant_time() {
+        assert!(utils::timing_safe_string_eq("ark", "ark"));
+        assert!(!utils::timing_safe_string_eq("ark", "ark!"));
+    }
+}

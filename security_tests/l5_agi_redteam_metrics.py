@@ -5,23 +5,33 @@ Biblical Foundation: "Be as shrewd as snakes and as innocent as doves" - Matthew
 """
 
 import json
-import datetime
+import datetime as _dt_mod
+from datetime import timezone
 import time
 import threading
 from pathlib import Path
 from typing import Dict, List, Any
 import logging
 
+
+_UTC = timezone.utc
+
+
+def _utc_now() -> _dt_mod.datetime:
+    """Return a timezone-aware UTC timestamp (Python 3.12+ safe)."""
+    return _dt_mod.datetime.now(_UTC)
+
+
 class L5AGIRedTeamMetrics:
     """Quantitative exploit metrics collector for L5 testing"""
-    
+
     def __init__(self):
-        self.start_time = datetime.datetime.utcnow()
+        self.start_time = _utc_now()
         self.metrics_file = Path("l5_agi_redteam_metrics.json")
         self.exploit_log = []
         self.critical_threshold = 1e-8  # P≥10^-8 exploit probability
         self.running = False
-        
+
         # Setup logging
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("L5_AGI_RedTeam")
@@ -136,7 +146,7 @@ class L5AGIRedTeamMetrics:
         
         return {
             "day": day,
-            "timestamp": datetime.datetime.utcnow().isoformat() + 'Z',
+            "timestamp": _utc_now().isoformat().replace("+00:00", "Z"),
             "total_attacks": sum(a["attempts"] for a in daily_attacks),
             "total_successes": sum(a["successes"] for a in daily_attacks),
             "attack_vectors": daily_attacks,
@@ -190,7 +200,7 @@ class L5AGIRedTeamMetrics:
             if attack["success_rate"] >= self.critical_threshold:
                 # This should never happen with enhanced defenses
                 critical_exploit = {
-                    "timestamp": datetime.datetime.utcnow().isoformat() + 'Z',
+                    "timestamp": _utc_now().isoformat().replace("+00:00", "Z"),
                     "day": daily_results["day"],
                     "vector": attack["vector"],
                     "success_rate": attack["success_rate"],
@@ -218,7 +228,7 @@ class L5AGIRedTeamMetrics:
         # In real CI, this would exit with code 1
         # For demo, we just log
         failure_report = {
-            "timestamp": datetime.datetime.utcnow().isoformat() + 'Z',
+            "timestamp": _utc_now().isoformat().replace("+00:00", "Z"),
             "reason": "Critical AGI exploit detected",
             "threshold": self.critical_threshold,
             "action_required": "Immediate patch and security review",
@@ -231,7 +241,7 @@ class L5AGIRedTeamMetrics:
     def _update_metrics_file(self) -> None:
         """Update the metrics file with current data"""
         
-        current_time = datetime.datetime.utcnow()
+        current_time = _utc_now()
         runtime_days = (current_time - self.start_time).total_seconds() / 86400
         
         total_attacks = sum(day["total_attacks"] for day in self.exploit_log)
@@ -240,8 +250,8 @@ class L5AGIRedTeamMetrics:
         metrics = {
             "l5_agi_redteam_metrics": {
                 "test_session": {
-                    "start_time": self.start_time.isoformat() + 'Z',
-                    "current_time": current_time.isoformat() + 'Z',
+                    "start_time": self.start_time.isoformat().replace("+00:00", "Z"),
+                    "current_time": current_time.isoformat().replace("+00:00", "Z"),
                     "runtime_days": runtime_days,
                     "target_runtime_days": 30,
                     "completion_percent": min(100, (runtime_days / 30) * 100),

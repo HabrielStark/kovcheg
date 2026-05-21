@@ -1,5 +1,5 @@
 import json, random
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -18,7 +18,7 @@ def generate(inputs: int = 1_000_000):
         "description": "Scriptural-Fuzz",
         "inputs": inputs,
         "sample_variants": sample,
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 if __name__ == "__main__":

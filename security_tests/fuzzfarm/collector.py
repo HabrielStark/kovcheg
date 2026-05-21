@@ -1,5 +1,5 @@
 import json, sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 THRESHOLD_HOURS = 24
@@ -20,11 +20,13 @@ def main():
         print("No Attack-LLM runs yet; skipping check.")
         return
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     fail = False
     for e in load_entries():
         if e["severity"] == CRITICAL_LEVEL and not e.get("patched"):
             ts = datetime.fromisoformat(e["timestamp"].rstrip("Z"))
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=timezone.utc)
             if now - ts > timedelta(hours=THRESHOLD_HOURS):
                 print(f"❌ Critical exploit {e['id']} unpatched >24h")
                 fail = True

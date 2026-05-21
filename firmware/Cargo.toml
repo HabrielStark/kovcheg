@@ -9,11 +9,12 @@ repository = "https://github.com/ark-project/ark"
 
 [lib]
 name = "ark_firmware"
-crate-type = ["staticlib", "cdylib"]
+crate-type = ["lib", "staticlib", "cdylib"]
 
 [[bin]]
 name = "ark-firmware"
 path = "src/main.rs"
+required-features = ["embedded-runtime"]
 
 [profile.release]
 opt-level = 3
@@ -30,25 +31,20 @@ debug = true
 overflow-checks = true
 
 [dependencies]
-# Core no_std dependencies
-cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
-cortex-m-rt = "0.7"
-embedded-hal = "1.0"
-nb = "1.1"
-void = { version = "1.0", default-features = false }
-
 # Cryptographic libraries
 chacha20poly1305 = { version = "0.10", default-features = false, features = ["alloc"] }
-aes-gcm = { version = "0.10", default-features = false, features = ["alloc"] }
+aes-gcm = { version = "0.10", default-features = false, features = ["alloc", "aes"] }
 sha3 = { version = "0.10", default-features = false }
 blake3 = { version = "1.5", default-features = false }
-ed25519-dalek = { version = "2.1", default-features = false, features = ["zeroize"] }
-x25519-dalek = { version = "2.0", default-features = false, features = ["zeroize"] }
+ed25519-dalek = { version = "2.1", default-features = false, features = ["zeroize", "alloc"] }
+x25519-dalek = { version = "2.0", default-features = false, features = ["zeroize", "static_secrets"] }
 
-# Post-quantum crypto
+# Post-quantum crypto (feature gated; pulled in for both host and embedded
+# verification of the optional defence-in-depth layer).
 pqcrypto-kyber = { version = "0.7", default-features = false, optional = true }
 pqcrypto-dilithium = { version = "0.5", default-features = false, optional = true }
 pqcrypto-sphincsplus = { version = "0.7", default-features = false, optional = true }
+pqcrypto-traits = { version = "0.3", default-features = false, optional = true }
 
 # Threshold cryptography
 frost-core = { version = "1.0", default-features = false, optional = true }
@@ -59,81 +55,91 @@ zeroize = { version = "1.7", default-features = false, features = ["derive"] }
 subtle = { version = "2.5", default-features = false }
 constant_time_eq = { version = "0.3", default-features = false }
 
-# Random number generation
-rand_core = { version = "0.6", default-features = false }
+# Random number generation (used by x25519/EphemeralSecret on host tests).
+rand_core = { version = "0.6", default-features = false, features = ["getrandom"] }
 
-# Hardware RNG support
-getrandom = { version = "0.2", default-features = false, features = ["custom"] }
-rand_chacha = { version = "0.3", default-features = false }
+# Embedded-target runtime crates. Only required when the firmware is built
+# as a real bootloader for the bare-metal target; gated so host `cargo test`
+# does not have to satisfy ARM/RISC-V build dependencies.
+cortex-m = { version = "0.7", default-features = false, features = ["critical-section-single-core"], optional = true }
+cortex-m-rt = { version = "0.7", default-features = false, optional = true }
+embedded-hal = { version = "1.0", default-features = false, optional = true }
+nb = { version = "1.1", default-features = false, optional = true }
+void = { version = "1.0", default-features = false, optional = true }
+getrandom = { version = "0.2", default-features = false, features = ["custom"], optional = true }
+rand_chacha = { version = "0.3", default-features = false, optional = true }
+postcard = { version = "1.0", default-features = false, features = ["alloc"], optional = true }
+heapless = { version = "0.8", default-features = false, features = ["serde"], optional = true }
+linked_list_allocator = { version = "0.10", default-features = false, optional = true }
+spin = { version = "0.9", default-features = false, features = ["mutex", "spin_mutex"], optional = true }
+riscv = { version = "0.10", default-features = false, features = ["critical-section-single-hart"], optional = true }
+riscv-rt = { version = "0.11", default-features = false, optional = true }
+serde = { version = "1.0", default-features = false, features = ["derive"], optional = true }
+thiserror-no-std = { version = "2.0", default-features = false, optional = true }
 
-# Serialization
-serde = { version = "1.0", default-features = false, features = ["derive"] }
-postcard = { version = "1.0", default-features = false, features = ["alloc"] }
-heapless = { version = "0.8", default-features = false, features = ["serde"] }
-
-# Memory management
-linked_list_allocator = "0.10"
-spin = { version = "0.9", default-features = false, features = ["mutex"] }
-
-# Hardware abstraction
-riscv = { version = "0.10", features = ["critical-section-single-hart"] }
-riscv-rt = "0.11"
-
-# Error handling
-thiserror-no-std = "2.0"
-
-# Logging (for debug builds only)
+# Optional debug logging.
 log = { version = "0.4", default-features = false, optional = true }
 
 [dev-dependencies]
-# Testing dependencies (only for host testing)
 rand = "0.8"
 hex = "0.4"
 criterion = "0.5"
 proptest = "1.4"
 
 [features]
-default = ["puf-heart", "optic-gate", "tri-compute"]
+# Host builds default to the minimal feature set so that integration tests
+# only need the standard cryptography stack. Embedded firmware enables
+# `embedded-runtime`.
+default = []
 
-# Hardware feature flags
+# Hardware feature flags (lightweight, no extra deps).
 puf-heart = []
 optic-gate = []
 tri-compute = []
 trip-fuse = []
 
-# Security feature flags
+# Security feature flags.
 side-channel-protection = []
 fault-injection-protection = []
 timing-attack-protection = []
 
-# Debug features (disabled in release)
+# Enable the bare-metal binary entry point plus its embedded dependencies.
+embedded-runtime = [
+  "dep:cortex-m",
+  "dep:cortex-m-rt",
+  "dep:embedded-hal",
+  "dep:nb",
+  "dep:void",
+  "dep:getrandom",
+  "dep:rand_chacha",
+  "dep:postcard",
+  "dep:heapless",
+  "dep:linked_list_allocator",
+  "dep:spin",
+  "dep:riscv",
+  "dep:riscv-rt",
+  "dep:serde",
+  "dep:thiserror-no-std",
+]
+
+# Debug features (disabled in release).
 debug-logging = ["dep:log"]
 hardware-simulation = []
 
-# Crypto feature flags
-post-quantum = ["dep:pqcrypto-kyber", "dep:pqcrypto-dilithium", "dep:pqcrypto-sphincsplus"]
+# Crypto feature flags.
+post-quantum = [
+  "dep:pqcrypto-kyber",
+  "dep:pqcrypto-dilithium",
+  "dep:pqcrypto-sphincsplus",
+  "dep:pqcrypto-traits",
+]
 threshold-crypto = ["dep:frost-core", "dep:frost-ed25519"]
 
-[target.'cfg(target_arch = "riscv32")']
-rustflags = [
-  "-C", "target-cpu=generic-rv32",
-  "-C", "target-feature=+m,+a,+c", 
-  "-C", "relocation-model=static",
-  "-C", "code-model=medium"
-]
-
-# Memory layout for embedded target
-[target.'cfg(target_os = "none")']
-rustflags = [
-  "-C", "link-arg=-Tlink.x",
-  "-C", "link-arg=-nostartfiles"
-]
-
-# Build script configuration
+# Build script configuration.
 [build-dependencies]
 cc = "1.0"
 
-# Package metadata
+# Package metadata.
 [package.metadata.docs.rs]
 all-features = false
 default-target = "riscv32imac-unknown-none-elf"
@@ -141,5 +147,3 @@ targets = ["riscv32imac-unknown-none-elf", "x86_64-unknown-linux-gnu"]
 
 [package.metadata.cross.target.riscv32imac-unknown-none-elf]
 runner = "qemu-system-riscv32"
-
-

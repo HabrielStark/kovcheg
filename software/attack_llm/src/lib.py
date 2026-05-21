@@ -9,14 +9,18 @@ Generates synthetic adversarial prompts/events to test moral defences
 import random
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import List
-from datetime import datetime
+from typing import Any, Dict, List
+from datetime import datetime, timezone
 
 __all__ = [
     "AttackScenario",
     "AttackVector",
     "AttackLLMSimulator",
 ]
+
+# Upper bound for synthetic scenario IDs (kept as an integer so that
+# random.randint accepts it on all supported Python versions).
+_SCENARIO_ID_RANGE: int = 1_000_000_000
 
 
 class AttackVector(Enum):
@@ -71,19 +75,19 @@ class AttackLLMSimulator:
             scenarios.append(AttackScenario(vector=vec, prompt=prompt))
         return scenarios
 
-    def generate_with_severity(self, n: int = 20):
+    def generate_with_severity(self, n: int = 20) -> List[Dict[str, Any]]:
         """Generate scenarios tagged with random severity levels for metrics."""
         severities = ["Low", "Medium", "High", "Critical"]
-        out = []
+        out: List[Dict[str, Any]] = []
         for sc in self.generate_batch(n):
             severity = random.choices(severities, weights=[0.5, 0.3, 0.15, 0.05])[0]
-            entry = {
-                "id": f"{sc.vector.name}-{random.randint(1,1e9):08x}",
+            entry: Dict[str, Any] = {
+                "id": f"{sc.vector.name}-{random.randint(1, _SCENARIO_ID_RANGE):08x}",
                 "vector": sc.vector.name,
                 "prompt": sc.prompt,
                 "severity": severity,
                 "detected": False,
-                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             }
             out.append(entry)
-        return out 
+        return out

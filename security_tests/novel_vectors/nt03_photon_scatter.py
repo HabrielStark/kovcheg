@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -10,7 +10,7 @@ def generate():
         "id": "NT-03",
         "description": "Photon-Side-Scatter",
         "spectral_range_nm": [400, 1600],
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "pass_rule": "Scatter <= 0.01 % full energy",
     }
     return data
