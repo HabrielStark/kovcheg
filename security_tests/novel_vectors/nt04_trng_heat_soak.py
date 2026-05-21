@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -11,7 +11,7 @@ def generate(hours: int = 190):
         "duration_hours": hours,
         "temperature_C": 105,
         "test_interval_h": 2,
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 if __name__ == "__main__":

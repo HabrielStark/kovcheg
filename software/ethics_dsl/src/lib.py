@@ -10,12 +10,16 @@ folder.  The shim keeps the tests unblocked while the native library gains full
 PyO3 bindings.
 """
 
-import asyncio
 import hashlib
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from enum import Enum, auto
-from datetime import datetime
 from typing import Any, Dict, List
+
+
+def _utc_now() -> datetime:
+    """Return a timezone-aware UTC timestamp (Python 3.12+ safe)."""
+    return datetime.now(timezone.utc)
 
 __all__ = [
     "Decision",
@@ -66,7 +70,7 @@ class Context:
 
     environment: str
     location: str
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=_utc_now)
     additional_context: Dict[str, Any] | None = None
 
 

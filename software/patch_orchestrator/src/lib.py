@@ -3,12 +3,16 @@ from __future__ import annotations
 """Patch Orchestrator – minimalist Python implementation for integration tests."""
 
 import asyncio
-from dataclasses import dataclass
-from datetime import timedelta
-from pathlib import Path
-from typing import Dict, Any
+import hashlib
+import hmac
 import io
 import json
+import os
+import tarfile
+from dataclasses import dataclass
+from datetime import datetime as _dt, timedelta, timezone
+from pathlib import Path
+from typing import Any, Dict, Optional, Tuple
 # Prefer zstandard for speed; fall back to built-in zlib if unavailable
 try:
     import zstandard as zstd  # type: ignore
@@ -154,17 +158,17 @@ class PatchOrchestrator:
     # ------------------------------------------------------------------
 
     @classmethod
-    def generate_keypair(cls) -> tuple[bytes, bytes]:
+    def generate_keypair(cls) -> Tuple[bytes, bytes]:
         """Generate a new Ed25519 key-pair (priv, pub) in raw bytes."""
         if _has_crypto:
             priv = Ed25519PrivateKey.generate()
             pub = priv.public_key()
             return cls._serialize_key_private(priv), cls._serialize_key_public(pub)
-        # Fallback: pseudo-random bytes (NOT SECURE – test only)
-        import os, hashlib
-
+        # Fallback: deterministic HMAC-based pseudo key-pair derived from a
+        # high-entropy seed. NOT cryptographically secure – used only when the
+        # `cryptography` package is unavailable in the air-gapped CI runner.
         priv_bytes = os.urandom(32)
-        pub_bytes = hashlib.sha256(priv_bytes).digest()[:32]
+        pub_bytes = hashlib.sha256(b"ARK_FALLBACK_PUB_V1|" + priv_bytes).digest()[:32]
         return priv_bytes, pub_bytes
 
     def ensure_keys(self) -> None:
@@ -183,14 +187,10 @@ class PatchOrchestrator:
         self,
         source_dir: Path,
         patch_path: Path,
-        metadata: dict[str, str] | None = None,
-        private_key: bytes | None = None,
+        metadata: Optional[Dict[str, str]] = None,
+        private_key: Optional[bytes] = None,
     ) -> None:
         """Create a compressed + signed .arkpatch from *source_dir*."""
-
-        import tarfile
-        import hashlib
-        from datetime import datetime as _dt
 
         self.ensure_keys()
         priv_bytes: bytes = private_key or self.config.signing_keys["priv"]
@@ -199,43 +199,49 @@ class PatchOrchestrator:
         else:
             priv = Ed25519PrivateKey(priv_bytes)  # type: ignore
 
-        # Build tar archive
+        # Build tar archive deterministically (sorted file order).
         buf = io.BytesIO()
         with tarfile.open(fileobj=buf, mode="w") as tar:
-            for p in source_dir.rglob("*"):
-                if p.is_file():
-                    tar.add(p, arcname=p.relative_to(source_dir))
+            files = sorted(
+                (p for p in source_dir.rglob("*") if p.is_file()),
+                key=lambda p: p.relative_to(source_dir).as_posix(),
+            )
+            for p in files:
+                tar.add(p, arcname=p.relative_to(source_dir).as_posix())
         tar_bytes = buf.getvalue()
 
         compressed = self._compress_bytes(tar_bytes)
 
-        header: dict[str, Any] = {
+        header: Dict[str, Any] = {
             "version": 1,
-            "created": _dt.utcnow().isoformat(timespec="seconds") + "Z",
+            "created": _dt.now(timezone.utc).isoformat(timespec="seconds").replace(
+                "+00:00", "Z"
+            ),
             "metadata": metadata or {},
         }
 
         digest = hashlib.sha256(compressed).digest()
-        header["signature"] = priv.sign(digest).hex()
 
-        header_bytes = json.dumps(header, separators=(",", ":")).encode()
+        if _has_crypto:
+            header["signature"] = priv.sign(digest).hex()
+            header["sig_alg"] = "ed25519"
+        else:
+            # Deterministic HMAC-style signature bound to the private key bytes.
+            header["signature"] = hmac.new(priv_bytes, digest, hashlib.sha256).hexdigest()
+            header["sig_alg"] = "hmac-sha256-fallback"
+
+        header_bytes = json.dumps(header, separators=(",", ":"), sort_keys=True).encode()
         with patch_path.open("wb") as f:
             f.write(len(header_bytes).to_bytes(4, "big"))
             f.write(header_bytes)
             f.write(compressed)
 
     # ------------------------------------------------------------------
-    def verify_patch(self, patch_path: Path, public_key: bytes | None = None) -> bool:
-        """Return True if the patch's Ed25519 signature is valid."""
-
-        import hashlib
+    def verify_patch(self, patch_path: Path, public_key: Optional[bytes] = None) -> bool:
+        """Return True if the patch's signature is valid for the active backend."""
 
         self.ensure_keys()
         pub_bytes: bytes = public_key or self.config.signing_keys["pub"]
-        if _has_crypto:
-            pub = Ed25519PublicKey.from_public_bytes(pub_bytes)
-        else:
-            pub = Ed25519PublicKey(pub_bytes)  # type: ignore
 
         with patch_path.open("rb") as f:
             header_len = int.from_bytes(f.read(4), "big")
@@ -243,11 +249,31 @@ class PatchOrchestrator:
             compressed = f.read()
 
         digest = hashlib.sha256(compressed).digest()
+        signature_hex = header.get("signature", "")
         try:
-            pub.verify(bytes.fromhex(header["signature"]), digest)
-            return True
-        except InvalidSignature:
+            signature = bytes.fromhex(signature_hex)
+        except ValueError:
             return False
+
+        sig_alg = header.get("sig_alg", "ed25519" if _has_crypto else "hmac-sha256-fallback")
+
+        if sig_alg == "ed25519" and _has_crypto:
+            pub = Ed25519PublicKey.from_public_bytes(pub_bytes)
+            try:
+                pub.verify(signature, digest)
+                return True
+            except InvalidSignature:
+                return False
+
+        if sig_alg == "hmac-sha256-fallback":
+            # Reconstruct the expected MAC using the active signing key.
+            priv_bytes = self.config.signing_keys.get("priv")
+            if not priv_bytes:
+                return False
+            expected = hmac.new(priv_bytes, digest, hashlib.sha256).digest()
+            return hmac.compare_digest(signature, expected)
+
+        return False
 
     # ------------------------------------------------------------------
     async def apply_patch(self, patch_path: Path, target_dir: Path) -> None:
@@ -264,7 +290,26 @@ class PatchOrchestrator:
             compressed = f.read()
 
         data = self._decompress_bytes(compressed)
-        import tarfile
+
+        target_root = Path(target_dir).resolve()
+        target_root.mkdir(parents=True, exist_ok=True)
 
         with tarfile.open(fileobj=io.BytesIO(data), mode="r") as tar:
-            tar.extractall(path=target_dir) 
+            members = tar.getmembers()
+            # Defence in depth: reject path traversal & special files.
+            for member in members:
+                member_path = (target_root / member.name).resolve()
+                if (
+                    not str(member_path).startswith(str(target_root))
+                    or member.issym()
+                    or member.islnk()
+                    or member.isdev()
+                ):
+                    raise ValueError(
+                        f"Refusing to extract unsafe tar member: {member.name!r}"
+                    )
+            # Python 3.12+ accepts the explicit data filter; older versions ignore it.
+            try:
+                tar.extractall(path=target_root, filter="data")  # type: ignore[arg-type]
+            except TypeError:  # pragma: no cover – older interpreters
+                tar.extractall(path=target_root)

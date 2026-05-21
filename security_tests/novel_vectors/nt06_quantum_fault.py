@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -10,7 +10,7 @@ def generate(temp_mK: int = 20):
         "description": "Quantum-Coherence Fault",
         "temperature_mK": temp_mK,
         "microwave_impulse": True,
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 if __name__ == "__main__":

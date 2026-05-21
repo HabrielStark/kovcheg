@@ -1,5 +1,5 @@
 import json, random
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 OUTPUT = Path(__file__).with_suffix('.json')
@@ -10,7 +10,7 @@ def generate(crp_samples: int = 1_000_000):
         "description": "PUF-ML-Oracle",
         "crp_samples": crp_samples,
         "model_arch": random.choice(["CNN", "Transformer", "MLP"]),
-        "generated": datetime.utcnow().isoformat() + "Z",
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 if __name__ == "__main__":
